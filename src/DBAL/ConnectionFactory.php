@@ -2,8 +2,10 @@
 
 namespace Nulldark\DBAL;
 
+use Nulldark\DBAL\Driver\Driver;
 use Nulldark\DBAL\Exception\MissingDriverException;
 use Nulldark\DBAL\Exception\UnsupportedDriverException;
+use SensitiveParameter;
 
 final class ConnectionFactory
 {
@@ -14,7 +16,7 @@ final class ConnectionFactory
      * @throws UnsupportedDriverException
      */
     public static function createConnection(
-        #[\SensitiveParameter]
+        #[SensitiveParameter]
         array $params,
         array $configuration = []
     ): Connection
@@ -31,11 +33,11 @@ final class ConnectionFactory
 
     /**
      * @param string|null $driver
-     * @return \Nulldark\DBAL\Driver\Driver
+     * @return Driver
      * @throws MissingDriverException
      * @throws UnsupportedDriverException
      */
-    private static function createDrive(?string $driver): \Nulldark\DBAL\Driver\Driver
+    private static function createDrive(?string $driver): Driver
     {
         if ($driver === null) {
             throw new MissingDriverException('The options "driver" are mandatory.');

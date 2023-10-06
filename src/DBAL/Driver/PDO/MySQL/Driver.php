@@ -2,6 +2,10 @@
 
 namespace Nulldark\DBAL\Driver\PDO\MySQL;
 
+use Exception;
+use Nulldark\DBAL\Driver\PDO\Connection;
+use PDO;
+use PDOException;
 use SensitiveParameter;
 
 class Driver implements \Nulldark\DBAL\Driver\Driver
@@ -14,25 +18,25 @@ class Driver implements \Nulldark\DBAL\Driver\Driver
         unset($safeParams['password']);
 
         if (!empty($params['persistent'])) {
-            $params['options'][\PDO::ATTR_PERSISTENT] = true;
+            $params['options'][PDO::ATTR_PERSISTENT] = true;
         }
 
         try {
-            $pdo = new \PDO(
+            $pdo = new PDO(
                 $this->dsn($safeParams),
                 $params['username'],
                 $params['password'],
                 $params['options'] ?? []
             );
-        } catch (\PDOException $exception) {
-            throw new \Exception(
+        } catch (PDOException $exception) {
+            throw new Exception(
                 $exception->getMessage(),
                 $exception->getCode(),
                 $exception
             );
         }
 
-        return new \Nulldark\DBAL\Driver\PDO\Connection(
+        return new Connection(
             $pdo
         );
     }

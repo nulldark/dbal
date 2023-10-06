@@ -2,7 +2,9 @@
 
 namespace Nulldark\DBAL\Exception;
 
-class UnsupportedDriverException extends \Exception
+use Exception;
+
+class UnsupportedDriverException extends Exception
 {
 
 }
