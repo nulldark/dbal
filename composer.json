@@ -1,0 +1,15 @@
+{
+    "name": "nulldark/dbal",
+    "autoload": {
+        "psr-4": {
+            "Nulldark\\DBAL\\": "src/DBAL/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Dominik Szamburski",
+            "email": "dominikszamburski99@gmail.com"
+        }
+    ],
+    "require": {}
+}
