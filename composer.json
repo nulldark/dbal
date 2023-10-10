@@ -6,6 +6,11 @@
             "Nulldark\\DBAL\\": "src/DBAL/"
         }
     },
+    "autoload-dev": {
+        "psr-4": {
+            "Nulldark\\Tests": "tests/"
+        }
+    },
     "authors": [
         {
             "name": "Dominik Szamburski",
