@@ -6,10 +6,8 @@ use PDO;
 
 final readonly class Result
 {
-
     public function __construct(private Driver\Result $result)
     {
-
     }
 
     /**
@@ -46,5 +44,4 @@ final readonly class Result
     {
         return $this->result->execute($params);
     }
-
 }

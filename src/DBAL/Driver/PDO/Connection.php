@@ -8,8 +8,8 @@ use PDOException;
 final readonly class Connection implements \Nulldark\DBAL\Driver\Connection
 {
     public function __construct(
-        private PDO $connection)
-    {
+        private PDO $connection
+    ) {
     }
 
     /**
@@ -22,7 +22,7 @@ final readonly class Connection implements \Nulldark\DBAL\Driver\Connection
                 $this->connection->prepare($sql)
             );
         } catch (PDOException $exc) {
-            throw new $exc;
+            throw new $exc();
         }
     }
 
@@ -36,7 +36,7 @@ final readonly class Connection implements \Nulldark\DBAL\Driver\Connection
                 $this->connection->query($sql)
             );
         } catch (PDOException $exception) {
-            throw new $exception;
+            throw new $exception();
         }
     }
 
@@ -48,7 +48,7 @@ final readonly class Connection implements \Nulldark\DBAL\Driver\Connection
         try {
             return $this->connection->exec($sql);
         } catch (PDOException $exception) {
-            throw new $exception;
+            throw new $exception();
         }
     }
 

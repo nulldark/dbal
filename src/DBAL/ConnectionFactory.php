@@ -19,8 +19,7 @@ final class ConnectionFactory
         #[SensitiveParameter]
         array $params,
         array $configuration = []
-    ): Connection
-    {
+    ): Connection {
         $driver = self::createDrive($params['driver'] ?: null);
 
         return new Connection(
@@ -28,7 +27,6 @@ final class ConnectionFactory
             $configuration,
             $driver
         );
-
     }
 
     /**

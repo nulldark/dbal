@@ -9,8 +9,7 @@ final readonly class Result implements \Nulldark\DBAL\Driver\Result
 {
     public function __construct(
         private PDOStatement $statement
-    )
-    {
+    ) {
     }
 
     /**

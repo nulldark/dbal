@@ -4,7 +4,6 @@ namespace Nulldark\DBAL\Driver;
 
 interface Result
 {
-
     /**
      * @param array $params
      * @return bool
