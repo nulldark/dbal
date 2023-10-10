@@ -35,20 +35,19 @@ final class Connection
      */
     public function __construct(
         #[SensitiveParameter]
-        array  $params,
-        array  $configuration,
+        array $params,
+        array $configuration,
         Driver $driver
-    )
-    {
+    ) {
         $this->_driver = $driver;
         $this->_params = $params;
         $this->_configuration = $configuration;
 
-        if (isset($this->_configuration['autoCommit']) && $this->_configuration['autoCommit'] === TRUE) {
+        if (isset($this->_configuration['autoCommit']) && $this->_configuration['autoCommit'] === true) {
             $this->autoCommit = true;
         }
 
-        if ($this->_configuration['loggingQuery'] === TRUE) {
+        if ($this->_configuration['loggingQuery'] === true) {
             $this->loggingQuery = true;
         }
     }
@@ -112,12 +111,13 @@ final class Connection
         $result = $this->runQueryCallback($query, $params, $callback);
 
         $this->logQuery(
-            $query, $params, round((microtime(true) - $start) * 1000, 2)
+            $query,
+            $params,
+            round((microtime(true) - $start) * 1000, 2)
         );
 
 
         return $result;
-
     }
 
     /**
@@ -136,7 +136,9 @@ final class Connection
             return $callback($query, $params);
         } catch (Exception $exception) {
             throw new QueryException(
-                $query, $params, $exception
+                $query,
+                $params,
+                $exception
             );
         }
     }
