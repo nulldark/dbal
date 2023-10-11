@@ -42,7 +42,7 @@ final class ConnectionFactory
         }
 
         return match ($driver) {
-            'pdo_mysql' => new Driver\PDO\MySQL\Driver(),
+            'pdo_mysql' => new \Nulldark\DBAL\Driver\PDO\MySQL\Driver(),
             default => throw new UnsupportedDriverException($driver)
         };
     }
