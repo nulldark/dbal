@@ -27,5 +27,17 @@
         "phpstan": "phpstan --memory-limit=-1",
         "phpcs": "phpcs",
         "phpcbf": "phpcbf"
+    },
+    "config": {
+        "allow-plugins": {
+            "bamarni/composer-bin-plugin": true
+        }
+    },
+    "extra": {
+        "bamarni-bin": {
+            "bin-links": false,
+            "target-directory": "tools",
+            "forward-command": true
+        }
     }
 }
