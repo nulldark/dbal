@@ -20,15 +20,22 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  */
 
-namespace Nulldark\DBAL\Exception;
+namespace Nulldark\DBAL\Contract;
 
 /**
  * @author Dominik Szamburski
  * @package DBAL
- * @subpackage Exception
+ * @subpackage Contract
  * @license LGPL-2.1
  * @version 0.3.0
  */
-class UnsupportedDriverException extends \InvalidArgumentException
+interface ConnectionInterface
 {
+    /**
+     * Set a database driver.
+     *
+     * @param DriverInterface $driver
+     * @return self
+     */
+    public function setDriver(DriverInterface $driver): self;
 }
