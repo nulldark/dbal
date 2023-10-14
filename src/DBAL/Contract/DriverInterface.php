@@ -22,13 +22,19 @@
 
 namespace Nulldark\DBAL\Contract;
 
+use SensitiveParameter;
+
 /**
  * @author Dominik Szamburski
- * @package DBAL
- * @subpackage Contract
+ * @package \Nulldark\DBAL\Contract
  * @license LGPL-2.1
  * @version 0.3.0
  */
 interface DriverInterface
 {
+    /**
+     * @param array $params
+     * @return ConnectionInterface
+     */
+    public function connect(#[SensitiveParameter] array $params): ConnectionInterface;
 }
