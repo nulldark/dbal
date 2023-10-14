@@ -60,4 +60,9 @@ interface BuilderInterface
      * @return string
      */
     public function toSQL(): string;
+
+    /**
+     * @return array
+     */
+    public function get(): array;
 }

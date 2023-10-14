@@ -24,6 +24,7 @@ namespace Nulldark\DBAL\Builder;
 
 use InvalidArgumentException;
 use Nulldark\DBAL\Builder\Grammars\Grammar;
+use Nulldark\DBAL\Connection;
 use Nulldark\DBAL\Contract\Builder\BuilderInterface;
 
 /**
@@ -51,9 +52,14 @@ class Builder implements BuilderInterface
     /** @var array<string[]> $wheres */
     public array $wheres;
 
+    /** @var Connection $connection */
+    private Connection $connection;
+
     public function __construct(
+        Connection $connection,
         Grammar $grammar = null
     ) {
+        $this->connection = $connection;
         $this->grammar = $grammar ?: new Grammar();
     }
 
@@ -116,6 +122,16 @@ class Builder implements BuilderInterface
     public function toSQL(): string
     {
         return $this->grammar->compile($this);
+    }
+
+    /**
+     * @return array
+     */
+    public function get(): array
+    {
+        return $this->connection->select(
+            $this->toSQL()
+        );
     }
 
     /**
