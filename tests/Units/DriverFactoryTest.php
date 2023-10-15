@@ -61,7 +61,7 @@ class DriverFactoryTest extends TestCase
 
     public static function dataConnectionParameters(): iterable
     {
-        yield [['driver' => 'inmemory']];
+        yield [['driver' => 'mysql']];
         yield [['driver' => 'pgsql']];
     }
 }
