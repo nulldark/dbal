@@ -25,7 +25,7 @@ namespace Nulldark\DBAL\Database\SQLite;
 use Nulldark\DBAL\Contract\ConnectionInterface;
 use Nulldark\DBAL\Contract\DriverInterface;
 use Nulldark\DBAL\Database\BaseDriver;
-use SensitiveParameter;
+use Nulldark\DBAL\DriverParams;
 
 /**
  * @author Dominik Szamburski
@@ -38,10 +38,10 @@ final class SQLiteDriver extends BaseDriver implements DriverInterface
     /**
      * @inheritDoc
      */
-    public function connect(#[SensitiveParameter] array $params): ConnectionInterface
+    public function connect(DriverParams $params): ConnectionInterface
     {
         return new SQLiteConnection(
-            new \PDO("sqlite:{$params['database']}")
+            new \PDO($params->dsn())
         );
     }
 }

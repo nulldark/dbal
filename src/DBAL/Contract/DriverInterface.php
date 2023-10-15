@@ -22,24 +22,23 @@
 
 namespace Nulldark\DBAL\Contract;
 
-use SensitiveParameter;
+use Nulldark\DBAL\DriverParams;
 
 /**
  * @author Dominik Szamburski
  * @package Nulldark\DBAL\Contract
  * @license LGPL-2.1
  * @version 0.3.0
- * @phpstan-import-type ConnectionParams from \Nulldark\DBAL\Connection
  */
 interface DriverInterface
 {
     /**
      * Attempts to create a connection with the database.
      *
-     * @param ConnectionParams $params
+     * @param DriverParams $params
      * @return ConnectionInterface
      *
      * @thorws Exception
      */
-    public function connect(#[SensitiveParameter] array $params): ConnectionInterface;
+    public function connect(DriverParams $params): ConnectionInterface;
 }

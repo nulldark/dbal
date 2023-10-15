@@ -36,15 +36,7 @@ use Nulldark\DBAL\Contract\DriverInterface;
  * @license LGPL-2.1
  * @version 0.3.0
  *
- * @phpstan-type ConnectionParams = array{
- *  "driver": string,
- *  "database"?: string,
- *  "username"?: string,
- *  "password"?: string,
- *  "host"?: string,
- *  "port"?: int,
- *  "charset"?: string
- * }
+ * @phpstan-import-type ConnectionParams from DriverParams
  */
 class Connection
 {
@@ -54,8 +46,8 @@ class Connection
     /** @var ConnectionInterface|null $connection */
     private ?ConnectionInterface $connection = null;
 
-    /** @var ConnectionParams $params  */
-    private array $params;
+    /** @var DriverParams $params  */
+    private DriverParams $params;
 
     private DriverFactoryInterface $factory;
 
@@ -70,11 +62,11 @@ class Connection
         $this->factory = new DriverFactory();
 
         if ($driver === null) {
-            $driver = $this->factory->createDriver($params);
+            $driver = $this->factory->createDriver($params['driver']);
         }
 
         $this->driver = $driver;
-        $this->params = $params;
+        $this->params = new DriverParams($params);
     }
 
     /**

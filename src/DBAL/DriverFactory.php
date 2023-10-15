@@ -40,9 +40,9 @@ class DriverFactory implements DriverFactoryInterface
     /**
      * @inheritDoc
      */
-    public function createDriver(#[\SensitiveParameter] array $params): DriverInterface
+    public function createDriver(string $driver): DriverInterface
     {
-        return match ($params['driver']) {
+        return match ($driver) {
             'mysql' => new MySQLDriver(),
             'pgsql' => new PostgresDriver(),
             'sqlite' => new SQLiteDriver(),
