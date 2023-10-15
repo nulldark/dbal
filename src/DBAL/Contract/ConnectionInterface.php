@@ -34,12 +34,16 @@ use Nulldark\DBAL\Database\Statement;
 interface ConnectionInterface
 {
     /**
+     * Execute a query, returning a records collection.
+     *
      * @param string $query
      * @return RecordCollection
      */
     public function query(string $query): RecordCollection;
 
     /**
+     * Prepares a query for execution.
+     *
      * @param string $query
      * @return Statement
      */

@@ -28,6 +28,12 @@ use Nulldark\DBAL\Database\BaseDriver;
 use PDO;
 use SensitiveParameter;
 
+/**
+ * @author Dominik Szamburski
+ * @package Nulldark\DBAL\Database\MySQL
+ * @license LGPL-2.1
+ * @version 0.3.0
+ */
 final class MySQLDriver extends BaseDriver implements DriverInterface
 {
     /**

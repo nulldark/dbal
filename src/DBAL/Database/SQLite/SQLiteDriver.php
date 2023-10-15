@@ -27,6 +27,12 @@ use Nulldark\DBAL\Contract\DriverInterface;
 use Nulldark\DBAL\Database\BaseDriver;
 use SensitiveParameter;
 
+/**
+ * @author Dominik Szamburski
+ * @package Nulldark\DBAL\Database\SQLite
+ * @license LGPL-2.1
+ * @version 0.3.0
+ */
 final class SQLiteDriver extends BaseDriver implements DriverInterface
 {
     /**

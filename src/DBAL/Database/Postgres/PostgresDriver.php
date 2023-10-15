@@ -29,6 +29,12 @@ use Nulldark\DBAL\Database\MySQL\MySQLConnection;
 use PDO;
 use SensitiveParameter;
 
+/**
+ * @author Dominik Szamburski
+ * @package Nulldark\DBAL\Database\Postgres
+ * @license LGPL-2.1
+ * @version 0.3.0
+ */
 final class PostgresDriver extends BaseDriver implements DriverInterface
 {
     /**

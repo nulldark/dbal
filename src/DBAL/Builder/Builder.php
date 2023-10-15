@@ -140,12 +140,15 @@ class Builder implements BuilderInterface
     }
 
     /**
+     * Checks if a valid operator has been passed and returns the checked value with the operator.
+     *
      * @param string|float|int|array<int|float|string> $value
      * @param string $operator
      * @param bool $useDefault
+     *
      * @return string[]
      *
-     * @throws InvalidArgumentException
+     * @throws InvalidArgumentException if is illegal operator combination.
      */
     private function prepareValueAndOperator(
         float|int|array|string $value,

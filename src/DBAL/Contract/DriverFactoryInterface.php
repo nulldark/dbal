@@ -24,17 +24,17 @@ namespace Nulldark\DBAL\Contract;
 
 /**
  * @author Dominik Szamburski
- * @package DBAL
- * @subpackage Contract
+ * @package Nulldark\DBAL\Contract
  * @license LGPL-2.1
  * @version 0.3.0
+ * @phpstan-import-type ConnectionParams from \Nulldark\DBAL\Connection
  */
 interface DriverFactoryInterface
 {
     /**
      * Create a new driver instance.
      *
-     * @param array<string, string> $params
+     * @param ConnectionParams $params
      * @return DriverInterface
      *
      * @thorws UnsupportedDriverException

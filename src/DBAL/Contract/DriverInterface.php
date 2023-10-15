@@ -26,15 +26,20 @@ use SensitiveParameter;
 
 /**
  * @author Dominik Szamburski
- * @package \Nulldark\DBAL\Contract
+ * @package Nulldark\DBAL\Contract
  * @license LGPL-2.1
  * @version 0.3.0
+ * @phpstan-import-type ConnectionParams from \Nulldark\DBAL\Connection
  */
 interface DriverInterface
 {
     /**
-     * @param array $params
+     * Attempts to create a connection with the database.
+     *
+     * @param ConnectionParams $params
      * @return ConnectionInterface
+     *
+     * @thorws Exception
      */
     public function connect(#[SensitiveParameter] array $params): ConnectionInterface;
 }

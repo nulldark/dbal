@@ -22,6 +22,12 @@
 
 namespace Nulldark\DBAL\Database;
 
+/**
+ * @author Dominik Szamburski
+ * @package Nulldark\DBAL\Database
+ * @license LGPL-2.1
+ * @version 0.3.0
+ */
 abstract class BaseDriver
 {
     /**
@@ -43,7 +49,7 @@ abstract class BaseDriver
             $dsn .= "port={$params['port']};";
         }
 
-        if (isset($params['dbname'])) {
+        if (isset($params['database'])) {
             $dsn .= "dbname={$params['dbname']}";
         }
 

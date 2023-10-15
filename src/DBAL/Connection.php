@@ -35,6 +35,16 @@ use Nulldark\DBAL\Contract\DriverInterface;
  * @package Nulldark\DBAL
  * @license LGPL-2.1
  * @version 0.3.0
+ *
+ * @phpstan-type ConnectionParams = array{
+ *  "driver": string,
+ *  "database"?: string,
+ *  "username"?: string,
+ *  "password"?: string,
+ *  "host"?: string,
+ *  "port"?: int,
+ *  "charset"?: string
+ * }
  */
 class Connection
 {
@@ -44,13 +54,13 @@ class Connection
     /** @var ConnectionInterface|null $connection */
     private ?ConnectionInterface $connection = null;
 
-    /** @var string[] $_params  */
+    /** @var ConnectionParams $params  */
     private array $params;
 
     private DriverFactoryInterface $factory;
 
     /**
-     * @param string[] $params
+     * @param ConnectionParams $params
      * @param DriverInterface|null $driver
      */
     public function __construct(
@@ -68,6 +78,8 @@ class Connection
     }
 
     /**
+     * Get new builder instance.
+     *
      * @return BuilderInterface
      */
     public function query(): BuilderInterface
@@ -78,6 +90,8 @@ class Connection
     }
 
     /**
+     * Run a select statement.
+     *
      * @param string $sql
      * @param array<string, string|int|float> $params
      * @return CollectionInterface
@@ -92,6 +106,8 @@ class Connection
     }
 
     /**
+     * Run a select statement and return single result.
+     *
      * @param string $sql
      * @param array<string, string|int|float> $params
      * @return mixed
@@ -107,6 +123,8 @@ class Connection
     }
 
     /**
+     * Run a SQL statement.
+     *
      * @param string $sql
      * @param array<string, string|int|float> $params
      * @param Closure $callback

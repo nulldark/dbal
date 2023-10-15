@@ -26,6 +26,12 @@ use Nulldark\DBAL\Contract\ConnectionInterface;
 use Nulldark\DBAL\Database\RecordCollection;
 use Nulldark\DBAL\Database\Statement;
 
+/**
+ * @author Dominik Szamburski
+ * @package Nulldark\DBAL\Database\Postgres
+ * @license LGPL-2.1
+ * @version 0.3.0
+ */
 final class PostgresConnection implements ConnectionInterface
 {
     public function __construct(

@@ -26,6 +26,8 @@ use InvalidArgumentException;
 use Nulldark\Collection\CollectionInterface;
 
 /**
+ * SQL Query Builder with fluid interface SQL.
+ *
  * @author Dominik Szamburski
  * @package Nulldark\DBAL\Contract\Builder
  * @license LGPL-2.1
@@ -34,12 +36,16 @@ use Nulldark\Collection\CollectionInterface;
 interface BuilderInterface
 {
     /**
+     * Set the columns to be selected.
+     *
      * @param string ...$columns
      * @return self
      */
     public function select(string ...$columns): self;
 
     /**
+     * Set the table which the query is targeting.
+     *
      * @param string $table
      * @param string|null $as
      * @return self
@@ -47,6 +53,8 @@ interface BuilderInterface
     public function from(string $table, string $as = null): self;
 
     /**
+     * Add where clause to the query.
+     *
      * @param string $column
      * @param string $operator
      * @param string|float|int|array<int|float|string> $values
@@ -63,11 +71,14 @@ interface BuilderInterface
     ): self;
 
     /**
+     * Get the SQL representation.
+     *
      * @return string
      */
     public function toSQL(): string;
 
     /**
+     * Execute the "SELECT" Query.
      *
      * @return CollectionInterface
      */
