@@ -20,15 +20,28 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  */
 
-namespace Nulldark\DBAL\Exception;
+namespace Nulldark\DBAL\Contract;
+
+use Nulldark\DBAL\Database\RecordCollection;
+use Nulldark\DBAL\Database\Statement;
 
 /**
  * @author Dominik Szamburski
- * @package DBAL
- * @subpackage Exception
+ * @package Nulldark\DBAL\Contract
  * @license LGPL-2.1
  * @version 0.3.0
  */
-class UnsupportedDriverException extends \InvalidArgumentException
+interface ConnectionInterface
 {
+    /**
+     * @param string $query
+     * @return RecordCollection
+     */
+    public function query(string $query): RecordCollection;
+
+    /**
+     * @param string $query
+     * @return Statement
+     */
+    public function prepare(string $query): Statement;
 }

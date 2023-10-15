@@ -4,8 +4,56 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "e70a569694a5d032762e0023b73f9dbf",
-    "packages": [],
+    "content-hash": "2be81518337b181beffc9578542aa454",
+    "packages": [
+        {
+            "name": "nulldark/collection",
+            "version": "v1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/nulldark/collection.git",
+                "reference": "b4857c1dc35986b0104a0c76283b92af68d5c102"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/nulldark/collection/zipball/b4857c1dc35986b0104a0c76283b92af68d5c102",
+                "reference": "b4857c1dc35986b0104a0c76283b92af68d5c102",
+                "shasum": ""
+            },
+            "require-dev": {
+                "bamarni/composer-bin-plugin": "1.8.2"
+            },
+            "type": "project",
+            "extra": {
+                "bamarni-bin": {
+                    "bin-links": false,
+                    "forward-command": true,
+                    "target-directory": "tools"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Nulldark\\Collection\\": "src/Collection/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Dominik Szamburski",
+                    "email": "dominikszamburski99@gmail.com"
+                }
+            ],
+            "description": "A library for representing and manipulating collections.",
+            "support": {
+                "issues": "https://github.com/nulldark/collection/issues",
+                "source": "https://github.com/nulldark/collection/tree/v1.0.0"
+            },
+            "time": "2023-10-15T10:37:10+00:00"
+        }
+    ],
     "packages-dev": [
         {
             "name": "bamarni/composer-bin-plugin",
@@ -70,7 +118,9 @@
     "stability-flags": [],
     "prefer-stable": false,
     "prefer-lowest": false,
-    "platform": [],
+    "platform": {
+        "ext-pdo": "*"
+    },
     "platform-dev": [],
     "plugin-api-version": "2.6.0"
 }
