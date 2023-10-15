@@ -20,15 +20,35 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  */
 
-namespace Nulldark\DBAL\Exception;
+namespace Nulldark\DBAL\Database;
+
+use Nulldark\Collection\CollectionInterface;
 
 /**
  * @author Dominik Szamburski
- * @package DBAL
- * @subpackage Exception
+ * @package Nulldark\DBAL\Database
  * @license LGPL-2.1
  * @version 0.3.0
  */
-class UnsupportedDriverException extends \InvalidArgumentException
+final class Statement
 {
+    public function __construct(
+        private readonly \PDOStatement $statement
+    ) {
+    }
+
+    /**
+     * @param array $params
+     * @return CollectionInterface
+     */
+    public function execute(array $params = []): CollectionInterface
+    {
+        try {
+            $this->statement->execute($params);
+        } catch (\PDOException $exception) {
+            throw $exception;
+        }
+
+        return new RecordCollection($this->statement);
+    }
 }

@@ -20,15 +20,24 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  */
 
-namespace Nulldark\DBAL\Exception;
+namespace Nulldark\DBAL\Contract;
 
 /**
  * @author Dominik Szamburski
  * @package DBAL
- * @subpackage Exception
+ * @subpackage Contract
  * @license LGPL-2.1
  * @version 0.3.0
  */
-class UnsupportedDriverException extends \InvalidArgumentException
+interface DriverFactoryInterface
 {
+    /**
+     * Create a new driver instance.
+     *
+     * @param array<string, string> $params
+     * @return DriverInterface
+     *
+     * @thorws UnsupportedDriverException
+     */
+    public function createDriver(#[\SensitiveParameter] array $params): DriverInterface;
 }

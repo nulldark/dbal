@@ -20,15 +20,21 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  */
 
-namespace Nulldark\DBAL\Exception;
+namespace Nulldark\DBAL\Database;
+
+use Nulldark\Collection\AbstractCollection;
+use PDO;
 
 /**
  * @author Dominik Szamburski
- * @package DBAL
- * @subpackage Exception
+ * @package Nulldark\DBAL\Database
  * @license LGPL-2.1
  * @version 0.3.0
  */
-class UnsupportedDriverException extends \InvalidArgumentException
+final class RecordCollection extends AbstractCollection
 {
+    public function __construct(private readonly \PDOStatement $statement)
+    {
+        parent::__construct($this->statement->fetchAll(PDO::FETCH_OBJ));
+    }
 }

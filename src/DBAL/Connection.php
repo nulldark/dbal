@@ -1,225 +1,123 @@
 <?php
 
+/**
+ * Copyright (C) 2023 Dominik Szamburski
+ *
+ * This file is part of nulldark/dbal
+ *
+ * This library is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Lesser General Public
+ * License as published by the Free Software Foundation; either
+ * version 2.1 of the License, or (at your option) any later version.
+ *
+ * This library is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public
+ * License along with this library; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
+ */
+
 namespace Nulldark\DBAL;
 
 use Closure;
-use Exception;
-use Nulldark\DBAL\Driver\Driver;
-use Nulldark\DBAL\Exception\QueryException;
-use PDO;
-use SensitiveParameter;
+use Nulldark\Collection\CollectionInterface;
+use Nulldark\DBAL\Builder\Builder;
+use Nulldark\DBAL\Contract\Builder\BuilderInterface;
+use Nulldark\DBAL\Contract\ConnectionInterface;
+use Nulldark\DBAL\Contract\DriverFactoryInterface;
+use Nulldark\DBAL\Contract\DriverInterface;
 
-final class Connection
+/**
+ * @author Dominik Szamburski
+ * @package Nulldark\DBAL
+ * @license LGPL-2.1
+ * @version 0.3.0
+ */
+class Connection
 {
-    /** @var bool $autoCommit */
-    private bool $autoCommit = false;
-    /** @var bool $loggingQuery */
-    private bool $loggingQuery = false;
-    /** @var null|\Nulldark\DBAL\Driver\Connection $connection */
-    private ?\Nulldark\DBAL\Driver\Connection $connection = null;
-    /** @var Driver $_driver */
-    private Driver $_driver;
-    /** @var array $_params */
-    private array $_params;
+    /** @var DriverInterface $_driver */
+    private DriverInterface $driver;
 
-    /** @var array $_configuration */
-    private array $_configuration;
+    /** @var ConnectionInterface|null $connection */
+    private ?ConnectionInterface $connection = null;
 
-    /** @var array $queries */
-    private array $queries = [];
+    /** @var string[] $_params  */
+    private array $params;
+
+    private DriverFactoryInterface $factory;
 
     /**
-     * @param array<string, mixed> $params
-     * @param array $configuration
-     * @param Driver $driver
+     * @param string[] $params
+     * @param DriverInterface|null $driver
      */
     public function __construct(
-        #[SensitiveParameter]
-        array $params,
-        array $configuration,
-        Driver $driver
+        #[\SensitiveParameter] array $params,
+        DriverInterface $driver = null
     ) {
-        $this->_driver = $driver;
-        $this->_params = $params;
-        $this->_configuration = $configuration;
+        $this->factory = new DriverFactory();
 
-        if (isset($this->_configuration['autoCommit']) && $this->_configuration['autoCommit'] === true) {
-            $this->autoCommit = true;
+        if ($driver === null) {
+            $driver = $this->factory->createDriver($params);
         }
 
-        if ($this->_configuration['loggingQuery'] === true) {
-            $this->loggingQuery = true;
-        }
+        $this->driver = $driver;
+        $this->params = $params;
     }
 
     /**
-     * Prepares and executes an SQL query and returns the value of of the first row of the result.
-     *
-     * @param string $sql
-     * @param array $params
-     * @param int $mode
-     * @return mixed
+     * @return BuilderInterface
      */
-    public function fetchOne(string $sql, array $params = [], int $mode = PDO::FETCH_ASSOC): mixed
+    public function query(): BuilderInterface
     {
-        return $this->query($sql, $params)->fetch($mode);
+        return new Builder(
+            $this,
+        );
     }
 
     /**
-     * Prepares and executes an SQL query and returns the result.
-     *
      * @param string $sql
-     * @param array $params
-     * @param int $mode
-     * @return array
+     * @param array<string, string|int|float> $params
+     * @return CollectionInterface
      */
-    public function fetch(string $sql, array $params = [], int $mode = PDO::FETCH_ASSOC): array
-    {
-        return $this->query($sql, $params)->fetchAll($mode);
-    }
-
-    /**
-     * Prepares and executes an SQL query.
-     *
-     * @param string $sql
-     * @param array $params
-     * @return Result
-     * @throws QueryException
-     */
-    public function query(string $sql, array $params = []): Result
+    public function select(string $sql, array $params = []): CollectionInterface
     {
         return $this->run($sql, $params, function ($sql, $params) {
-            return new Result(
-                count($params) > 0
-                    ? $this->connection->prepare($sql)->execute($params)
-                    : $this->connection->query($sql)
-            );
+            return $this->connection
+                ->prepare($sql)
+                ->execute($params);
         });
     }
 
     /**
-     * @param string $query
-     * @param array $params
-     * @param Closure $callback
-     * @return Result
-     * @throws QueryException
+     * @param string $sql
+     * @param array<string, string|int|float> $params
+     * @return mixed
      */
-    private function run(string $query, array $params, Closure $callback): Result
+    public function first(string $sql, array $params = []): mixed
     {
-        $start = microtime(true);
-
-        $result = $this->runQueryCallback($query, $params, $callback);
-
-        $this->logQuery(
-            $query,
-            $params,
-            round((microtime(true) - $start) * 1000, 2)
-        );
-
-
-        return $result;
+        return $this->run($sql, $params, function ($sql, $params) {
+            return $this->connection
+                ->prepare($sql)
+                ->execute($params)
+                ->first();
+        });
     }
 
     /**
-     * @param string $query
-     * @param array $params
+     * @param string $sql
+     * @param array<string, string|int|float> $params
      * @param Closure $callback
      * @return mixed
-     * @throws QueryException
-     * @throws Exception
      */
-    private function runQueryCallback(string $query, array $params, Closure $callback): mixed
+    private function run(string $sql, array $params, Closure $callback): mixed
     {
-        $this->reconnectIfNeeded();
-
-        try {
-            return $callback($query, $params);
-        } catch (Exception $exception) {
-            throw new QueryException(
-                $query,
-                $params,
-                $exception
-            );
-        }
-    }
-
-    /**
-     * @return void
-     * @throws Exception
-     */
-    private function reconnectIfNeeded(): void
-    {
-        if ($this->connection !== null) {
-            return;
+        if ($this->connection === null) {
+            $this->connection = $this->driver->connect($this->params);
         }
 
-        $this->connection = $this->_driver->connect($this->_params);
-
-        if ($this->autoCommit) {
-            $this->beginTransaction();
-        }
-    }
-
-    /**
-     * Start new transaction.
-     *
-     * @return bool
-     */
-    public function beginTransaction(): bool
-    {
-        return $this->connection->transaction();
-    }
-
-    /**
-     * @param string $sql
-     * @param array $params
-     * @param float $time
-     * @return void
-     */
-    private function logQuery(string $sql, array $params, float $time): void
-    {
-        if ($this->loggingQuery) {
-            $this->queries[] = compact('sql', 'params', 'time');
-        }
-    }
-
-    /**
-     * Prepares and executes an SQL query and returns the number of changed rows.
-     *
-     * @param string $sql
-     * @param array $params
-     * @return int
-     */
-    public function execute(string $sql, array $params = []): int
-    {
-        return $this->query($sql, $params)->count();
-    }
-
-    /**
-     * Commit pending transactions.
-     *
-     * @return bool
-     */
-    public function commit(): bool
-    {
-        return $this->connection->commit();
-    }
-
-    /**
-     * Rollback transactions.
-     *
-     * @return bool
-     */
-    public function rollback(): bool
-    {
-        return $this->connection->rollback();
-    }
-
-    /**
-     * @return array
-     */
-    public function getLogQuery(): array
-    {
-        return $this->queries;
+        return $callback($sql, $params);
     }
 }

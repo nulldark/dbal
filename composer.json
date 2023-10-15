@@ -1,30 +1,60 @@
 {
-    "name": "nulldark/dbal",
-    "license": "LGPL-2.1-only",
-    "autoload": {
-        "psr-4": {
-            "Nulldark\\DBAL\\": "src/DBAL/"
-        }
-    },
-    "autoload-dev": {
-        "psr-4": {
-            "Nulldark\\Tests": "tests/"
-        }
-    },
-    "authors": [
-        {
-            "name": "Dominik Szamburski",
-            "email": "dominikszamburski99@gmail.com"
-        }
-    ],
-    "require-dev": {
-        "phpstan/phpstan": "^1.10",
-        "squizlabs/php_codesniffer": "^3.7",
-        "phpunit/phpunit": "^10.4"
-    },
-    "scripts": {
-        "phpstan": "phpstan --memory-limit=-1",
-        "phpcs": "phpcs",
-        "phpcbf": "phpcbf"
+  "name": "nulldark/dbal",
+  "description": "DBAL Component",
+  "license": "LGPL-2.1-only",
+  "authors": [
+    {
+      "name": "Dominik Szamburski",
+      "email": "dominikszamburski99@gmail.com"
     }
+  ],
+  "require": {
+    "ext-pdo": "*",
+    "nulldark/collection": "v1.0.0"
+  },
+  "require-dev": {
+    "bamarni/composer-bin-plugin": "^1.8"
+  },
+  "autoload": {
+    "psr-4": {
+      "Nulldark\\DBAL\\": "src/DBAL/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Nulldark\\Tests\\": "tests/"
+    }
+  },
+  "config": {
+    "allow-plugins": {
+      "bamarni/composer-bin-plugin": true
+    },
+    "sort-packages": true
+  },
+  "extra": {
+    "bamarni-bin": {
+      "bin-links": false,
+      "forward-command": true,
+      "target-directory": "tools"
+    }
+  },
+  "scripts": {
+    "dev:analyze": [
+      "@dev:analyze:phpstan"
+    ],
+    "dev:analyze:phpstan": "bin/phpstan analyze --ansi --memory-limit=1G",
+    "dev:lint": [
+      "@dev:lint:fix",
+      "@dev:lint:style"
+    ],
+    "dev:lint:fix": "bin/phpcbf",
+    "dev:lint:style": "bin/phpcs --colors",
+    "dev:test": [
+      "@dev:lint",
+      "@dev:analyze",
+      "@dev:test:unit"
+    ],
+    "dev:test:coverage:html": "bin/phpunit --coverage-html .build/coverage/html/",
+    "dev:test:phpunit": "bin/phpunit"
+  }
 }
