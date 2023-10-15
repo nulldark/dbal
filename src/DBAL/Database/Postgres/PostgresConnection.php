@@ -5,14 +5,12 @@ namespace Nulldark\DBAL\Database\Postgres;
 use Nulldark\DBAL\Contract\ConnectionInterface;
 use Nulldark\DBAL\Database\RecordCollection;
 use Nulldark\DBAL\Database\Statement;
-use PDOStatement;
 
-final readonly class PostgresConnection implements ConnectionInterface
+final class PostgresConnection implements ConnectionInterface
 {
     public function __construct(
-        private \PDO $pdo
+        private readonly \PDO $pdo
     ) {
-
     }
 
     /**

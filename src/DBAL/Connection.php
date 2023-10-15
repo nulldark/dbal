@@ -39,13 +39,13 @@ use Nulldark\DBAL\Contract\DriverInterface;
 class Connection
 {
     /** @var DriverInterface $_driver */
-    private DriverInterface $_driver;
+    private DriverInterface $driver;
 
     /** @var ConnectionInterface|null $connection */
     private ?ConnectionInterface $connection = null;
 
     /** @var string[] $_params  */
-    private array $_params;
+    private array $params;
 
     private DriverFactoryInterface $factory;
 
@@ -63,8 +63,8 @@ class Connection
             $driver = $this->factory->createDriver($params);
         }
 
-        $this->_driver = $driver;
-        $this->_params = $params;
+        $this->driver = $driver;
+        $this->params = $params;
     }
 
     /**
@@ -115,7 +115,7 @@ class Connection
     private function run(string $sql, array $params, Closure $callback): mixed
     {
         if ($this->connection === null) {
-            $this->connection = $this->_driver->connect($this->_params);
+            $this->connection = $this->driver->connect($this->params);
         }
 
         return $callback($sql, $params);

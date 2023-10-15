@@ -55,7 +55,12 @@ interface BuilderInterface
      *
      * @throws InvalidArgumentException
      */
-    public function where(string $column, string $operator, string|array|float|int $values, string $boolean = 'AND'): self;
+    public function where(
+        string $column,
+        string $operator,
+        string|array|float|int $values,
+        string $boolean = 'AND'
+    ): self;
 
     /**
      * @return string

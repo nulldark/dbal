@@ -94,8 +94,12 @@ class Builder implements BuilderInterface
     /**
      * @inheritDoc
      */
-    public function where(string $column, string $operator, string|array|float|int $values, string $boolean = 'AND'): BuilderInterface
-    {
+    public function where(
+        string $column,
+        string $operator,
+        string|array|float|int $values,
+        string $boolean = 'AND'
+    ): BuilderInterface {
         [$value, $operator] = $this->prepareValueAndOperator(
             $values,
             $operator,
@@ -143,8 +147,11 @@ class Builder implements BuilderInterface
      *
      * @throws InvalidArgumentException
      */
-    private function prepareValueAndOperator(float|int|array|string $value, string $operator, bool $useDefault = false): array
-    {
+    private function prepareValueAndOperator(
+        float|int|array|string $value,
+        string $operator,
+        bool $useDefault = false
+    ): array {
         if ($useDefault) {
             return [$operator, '='];
         } elseif (in_array($operator, $this->operators) && !in_array($operator, ['=', '<>', '!='])) {

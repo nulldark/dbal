@@ -13,5 +13,4 @@ class Connection extends \Nulldark\DBAL\Connection
             'database' => __DIR__ . '/../Stubs/stubs.db'
         ]);
     }
-
 }

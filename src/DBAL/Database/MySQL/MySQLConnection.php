@@ -5,14 +5,12 @@ namespace Nulldark\DBAL\Database\MySQL;
 use Nulldark\DBAL\Contract\ConnectionInterface;
 use Nulldark\DBAL\Database\RecordCollection;
 use Nulldark\DBAL\Database\Statement;
-use PDOStatement;
 
-final readonly class MySQLConnection implements ConnectionInterface
+final class MySQLConnection implements ConnectionInterface
 {
     public function __construct(
-        private \PDO $pdo
+        private readonly \PDO $pdo
     ) {
-
     }
 
     /**

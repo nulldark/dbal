@@ -30,11 +30,11 @@ use Nulldark\Collection\CollectionInterface;
  * @license LGPL-2.1
  * @version 0.3.0
  */
-final readonly class Statement
+final class Statement
 {
-    public function __construct(private \PDOStatement $statement)
-    {
-
+    public function __construct(
+        private readonly \PDOStatement $statement
+    ) {
     }
 
     /**
