@@ -24,14 +24,14 @@ namespace Nulldark\DBAL;
 
 use Nulldark\DBAL\Contract\DriverFactoryInterface;
 use Nulldark\DBAL\Contract\DriverInterface;
-use Nulldark\DBAL\Database\InMemory\InMemoryDriver;
 use Nulldark\DBAL\Database\MySQL\MySQLDriver;
 use Nulldark\DBAL\Database\Postgres\PostgresDriver;
+use Nulldark\DBAL\Database\SQLite\SQLiteDriver;
 use Nulldark\DBAL\Exception\UnsupportedDriverException;
 
 /**
  * @author Dominik Szamburski
- * @package DBAL
+ * @package Nulldark\DBAL
  * @license LGPL-2.1
  * @version 0.3.0
  */
@@ -43,9 +43,9 @@ class DriverFactory implements DriverFactoryInterface
     public function createDriver(#[\SensitiveParameter] array $params): DriverInterface
     {
         return match ($params['driver']) {
-            'inmemory' => new InMemoryDriver(),
             'mysql' => new MySQLDriver(),
             'pgsql' => new PostgresDriver(),
+            'sqlite' => new SQLiteDriver(),
             default => throw new UnsupportedDriverException()
         };
     }

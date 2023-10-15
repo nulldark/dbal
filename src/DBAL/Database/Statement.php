@@ -20,22 +20,35 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  */
 
-namespace Nulldark\DBAL\Contract;
+namespace Nulldark\DBAL\Database;
+
+use Nulldark\Collection\CollectionInterface;
 
 /**
  * @author Dominik Szamburski
- * @package DBAL
- * @subpackage Contract
+ * @package Nulldark\DBAL\Database
  * @license LGPL-2.1
  * @version 0.3.0
  */
-interface CapsuleInterface
+final readonly class Statement
 {
+    public function __construct(private \PDOStatement $statement)
+    {
+
+    }
+
     /**
-     * Establish new database connection.
-     *
-     * @param array $parameters
-     * @return ConnectionInterface
+     * @param array $params
+     * @return CollectionInterface
      */
-    public function createConnection(#[\SensitiveParameter] array $parameters): ConnectionInterface;
+    public function execute(array $params = []): CollectionInterface
+    {
+        try {
+            $this->statement->execute($params);
+        } catch (\PDOException $exception) {
+            throw $exception;
+        }
+
+        return new RecordCollection($this->statement);
+    }
 }

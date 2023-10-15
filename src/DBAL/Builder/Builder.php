@@ -23,6 +23,7 @@
 namespace Nulldark\DBAL\Builder;
 
 use InvalidArgumentException;
+use Nulldark\Collection\CollectionInterface;
 use Nulldark\DBAL\Builder\Grammars\Grammar;
 use Nulldark\DBAL\Connection;
 use Nulldark\DBAL\Contract\Builder\BuilderInterface;
@@ -125,9 +126,9 @@ class Builder implements BuilderInterface
     }
 
     /**
-     * @return array
+     * @inheritDoc
      */
-    public function get(): array
+    public function get(): CollectionInterface
     {
         return $this->connection->select(
             $this->toSQL()
@@ -135,10 +136,12 @@ class Builder implements BuilderInterface
     }
 
     /**
-     * @param float|int|array<int|float|string>|string|null $value
+     * @param string|float|int|array<int|float|string> $value
      * @param string $operator
      * @param bool $useDefault
-     * @return array
+     * @return string[]
+     *
+     * @throws InvalidArgumentException
      */
     private function prepareValueAndOperator(float|int|array|string $value, string $operator, bool $useDefault = false): array
     {

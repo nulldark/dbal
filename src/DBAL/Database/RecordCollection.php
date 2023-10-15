@@ -20,28 +20,21 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  */
 
-namespace Nulldark\DBAL\Contract;
+namespace Nulldark\DBAL\Database;
 
-use Nulldark\DBAL\Database\RecordCollection;
-use Nulldark\DBAL\Database\Statement;
+use Nulldark\Collection\AbstractCollection;
+use PDO;
 
 /**
  * @author Dominik Szamburski
- * @package Nulldark\DBAL\Contract
+ * @package Nulldark\DBAL\Database
  * @license LGPL-2.1
  * @version 0.3.0
  */
-interface ConnectionInterface
+final class RecordCollection extends AbstractCollection
 {
-    /**
-     * @param string $query
-     * @return RecordCollection
-     */
-    public function query(string $query): RecordCollection;
-
-    /**
-     * @param string $query
-     * @return Statement
-     */
-    public function prepare(string $query): Statement;
+    public function __construct(private readonly \PDOStatement $statement)
+    {
+        parent::__construct($this->statement->fetchAll(PDO::FETCH_OBJ));
+    }
 }

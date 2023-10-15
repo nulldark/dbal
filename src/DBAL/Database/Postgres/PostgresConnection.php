@@ -3,6 +3,8 @@
 namespace Nulldark\DBAL\Database\Postgres;
 
 use Nulldark\DBAL\Contract\ConnectionInterface;
+use Nulldark\DBAL\Database\RecordCollection;
+use Nulldark\DBAL\Database\Statement;
 use PDOStatement;
 
 final readonly class PostgresConnection implements ConnectionInterface
@@ -16,16 +18,20 @@ final readonly class PostgresConnection implements ConnectionInterface
     /**
      * @inheritDoc
      */
-    public function query(string $query): array
+    public function query(string $query): RecordCollection
     {
-        return $this->pdo->query($query)->fetchAll();
+        return new RecordCollection(
+            $this->pdo->query($query)
+        );
     }
 
     /**
      * @inheritDoc
      */
-    public function prepare(string $query): false|PDOStatement
+    public function prepare(string $query): Statement
     {
-        return $this->pdo->prepare($query);
+        return new Statement(
+            $this->pdo->prepare($query)
+        );
     }
 }

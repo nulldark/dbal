@@ -23,6 +23,7 @@
 namespace Nulldark\DBAL\Contract\Builder;
 
 use InvalidArgumentException;
+use Nulldark\Collection\CollectionInterface;
 
 /**
  * @author Dominik Szamburski
@@ -62,7 +63,8 @@ interface BuilderInterface
     public function toSQL(): string;
 
     /**
-     * @return array
+     *
+     * @return CollectionInterface
      */
-    public function get(): array;
+    public function get(): CollectionInterface;
 }
