@@ -125,6 +125,8 @@ class Grammar
     protected function buildWheresToArray(Builder $query): array
     {
         return array_map(function ($where) use ($query) {
+            assert(is_string($where['type']));
+
             return $where['boolean'] . ' ' . $this->{"where{$where['type']}"}($query, $where);
         }, $query->wheres);
     }

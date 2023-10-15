@@ -50,7 +50,7 @@ class Builder implements BuilderInterface
     /** @var string $from */
     public string $from;
 
-    /** @var array<string[]> $wheres */
+    /** @var array<array-key, mixed[]> $wheres */
     public array $wheres;
 
     /** @var Connection $connection */
@@ -97,7 +97,7 @@ class Builder implements BuilderInterface
     public function where(
         string $column,
         string $operator,
-        string|array|float|int $values,
+        mixed $values,
         string $boolean = 'AND'
     ): BuilderInterface {
         [$value, $operator] = $this->prepareValueAndOperator(
@@ -142,16 +142,16 @@ class Builder implements BuilderInterface
     /**
      * Checks if a valid operator has been passed and returns the checked value with the operator.
      *
-     * @param string|float|int|array<int|float|string> $value
+     * @param mixed $value
      * @param string $operator
      * @param bool $useDefault
      *
-     * @return string[]
+     * @return mixed[]
      *
      * @throws InvalidArgumentException if is illegal operator combination.
      */
     private function prepareValueAndOperator(
-        float|int|array|string $value,
+        mixed $value,
         string $operator,
         bool $useDefault = false
     ): array {

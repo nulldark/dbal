@@ -57,7 +57,7 @@ interface BuilderInterface
      *
      * @param string $column
      * @param string $operator
-     * @param string|float|int|array<int|float|string> $values
+     * @param mixed $values
      * @param string $boolean
      * @return self
      *
@@ -66,7 +66,7 @@ interface BuilderInterface
     public function where(
         string $column,
         string $operator,
-        string|array|float|int $values,
+        mixed$values,
         string $boolean = 'AND'
     ): self;
 

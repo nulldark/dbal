@@ -91,26 +91,8 @@ class Connection
     public function select(string $sql, array $params = []): CollectionInterface
     {
         return $this->run($sql, $params, function ($sql, $params) {
-            return $this->connection
-                ->prepare($sql)
+            return $this->connection?->prepare($sql)
                 ->execute($params);
-        });
-    }
-
-    /**
-     * Run a select statement and return single result.
-     *
-     * @param string $sql
-     * @param array<string, string|int|float> $params
-     * @return mixed
-     */
-    public function first(string $sql, array $params = []): mixed
-    {
-        return $this->run($sql, $params, function ($sql, $params) {
-            return $this->connection
-                ->prepare($sql)
-                ->execute($params)
-                ->first();
         });
     }
 
@@ -118,11 +100,11 @@ class Connection
      * Run a SQL statement.
      *
      * @param string $sql
-     * @param array<string, string|int|float> $params
+     * @param array<string, mixed> $params
      * @param Closure $callback
-     * @return mixed
+     * @return CollectionInterface
      */
-    private function run(string $sql, array $params, Closure $callback): mixed
+    private function run(string $sql, array $params, Closure $callback): CollectionInterface
     {
         if ($this->connection === null) {
             $this->connection = $this->driver->connect($this->params);

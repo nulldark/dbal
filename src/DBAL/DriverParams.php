@@ -53,9 +53,9 @@ final class DriverParams
     /**
      * The driver class.
      *
-     * @var Driver|null $driver
+     * @var Driver $driver
      */
-    private ?Driver $driver;
+    private Driver $driver;
 
     /**
      * @param ConnectionParams $params

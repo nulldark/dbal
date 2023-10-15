@@ -25,6 +25,8 @@ namespace Nulldark\DBAL\Database\SQLite;
 use Nulldark\DBAL\Contract\ConnectionInterface;
 use Nulldark\DBAL\Database\RecordCollection;
 use Nulldark\DBAL\Database\Statement;
+use PDO;
+use PDOStatement;
 
 /**
  * @author Dominik Szamburski
@@ -35,7 +37,7 @@ use Nulldark\DBAL\Database\Statement;
 final class SQLiteConnection implements ConnectionInterface
 {
     public function __construct(
-        private readonly \PDO $pdo
+        private readonly PDO $pdo
     ) {
     }
 
@@ -44,8 +46,11 @@ final class SQLiteConnection implements ConnectionInterface
      */
     public function query(string $query): RecordCollection
     {
+        $statement = $this->pdo->query($query);
+        assert($statement instanceof PDOStatement);
+
         return new RecordCollection(
-            $this->pdo->query($query)
+            $statement
         );
     }
 
@@ -54,6 +59,9 @@ final class SQLiteConnection implements ConnectionInterface
      */
     public function prepare(string $query): Statement
     {
+        $statement = $this->pdo->prepare($query);
+        assert($statement instanceof PDOStatement);
+
         return new Statement(
             $this->pdo->prepare($query)
         );
