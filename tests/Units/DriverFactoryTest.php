@@ -45,13 +45,13 @@ class DriverFactoryTest extends TestCase
     {
         $this->expectException(UnsupportedDriverException::class);
 
-        $this->factory->createDriver([]);
+        $this->factory->createDriver('null');
     }
 
     /**
      * @dataProvider dataConnectionParameters
      */
-    public function testCreateDriverReturnsDriverInstance(array $parameters): void
+    public function testCreateDriverReturnsDriverInstance(string $parameters): void
     {
         $this->assertInstanceOf(
             DriverInterface::class,
@@ -61,7 +61,7 @@ class DriverFactoryTest extends TestCase
 
     public static function dataConnectionParameters(): iterable
     {
-        yield [['driver' => 'mysql']];
-        yield [['driver' => 'pgsql']];
+        yield ['mysql'];
+        yield ['pgsql'];
     }
 }

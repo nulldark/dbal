@@ -35,6 +35,8 @@ use Nulldark\DBAL\Contract\DriverInterface;
  * @package Nulldark\DBAL
  * @license LGPL-2.1
  * @version 0.3.0
+ *
+ * @phpstan-import-type ConnectionParams from DriverParams
  */
 class Connection
 {
@@ -44,13 +46,13 @@ class Connection
     /** @var ConnectionInterface|null $connection */
     private ?ConnectionInterface $connection = null;
 
-    /** @var string[] $_params  */
-    private array $params;
+    /** @var DriverParams $params  */
+    private DriverParams $params;
 
     private DriverFactoryInterface $factory;
 
     /**
-     * @param string[] $params
+     * @param ConnectionParams $params
      * @param DriverInterface|null $driver
      */
     public function __construct(
@@ -60,14 +62,16 @@ class Connection
         $this->factory = new DriverFactory();
 
         if ($driver === null) {
-            $driver = $this->factory->createDriver($params);
+            $driver = $this->factory->createDriver($params['driver']);
         }
 
         $this->driver = $driver;
-        $this->params = $params;
+        $this->params = new DriverParams($params);
     }
 
     /**
+     * Get new builder instance.
+     *
      * @return BuilderInterface
      */
     public function query(): BuilderInterface
@@ -78,6 +82,8 @@ class Connection
     }
 
     /**
+     * Run a select statement.
+     *
      * @param string $sql
      * @param array<string, string|int|float> $params
      * @return CollectionInterface
@@ -85,34 +91,20 @@ class Connection
     public function select(string $sql, array $params = []): CollectionInterface
     {
         return $this->run($sql, $params, function ($sql, $params) {
-            return $this->connection
-                ->prepare($sql)
+            return $this->connection?->prepare($sql)
                 ->execute($params);
         });
     }
 
     /**
+     * Run a SQL statement.
+     *
      * @param string $sql
-     * @param array<string, string|int|float> $params
-     * @return mixed
-     */
-    public function first(string $sql, array $params = []): mixed
-    {
-        return $this->run($sql, $params, function ($sql, $params) {
-            return $this->connection
-                ->prepare($sql)
-                ->execute($params)
-                ->first();
-        });
-    }
-
-    /**
-     * @param string $sql
-     * @param array<string, string|int|float> $params
+     * @param array<string, mixed> $params
      * @param Closure $callback
-     * @return mixed
+     * @return CollectionInterface
      */
-    private function run(string $sql, array $params, Closure $callback): mixed
+    private function run(string $sql, array $params, Closure $callback): CollectionInterface
     {
         if ($this->connection === null) {
             $this->connection = $this->driver->connect($this->params);

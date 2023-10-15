@@ -38,7 +38,9 @@ final class Statement
     }
 
     /**
-     * @param array $params
+     * Execute a prepared statement.
+     *
+     * @param mixed[] $params
      * @return CollectionInterface
      */
     public function execute(array $params = []): CollectionInterface

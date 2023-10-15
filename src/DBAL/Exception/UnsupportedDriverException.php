@@ -24,8 +24,7 @@ namespace Nulldark\DBAL\Exception;
 
 /**
  * @author Dominik Szamburski
- * @package DBAL
- * @subpackage Exception
+ * @package Nulldark\DBAL\Exception
  * @license LGPL-2.1
  * @version 0.3.0
  */

@@ -25,8 +25,10 @@ namespace Nulldark\DBAL\Builder\Grammars;
 use Nulldark\DBAL\Builder\Builder;
 
 /**
+ * @internal
+ *
  * @author Dominik Szamburski
- * @package Nulldark\DBAL\Builder
+ * @package Nulldark\DBAL\Builder\Grammars
  * @license LGPL-2.1
  * @version 0.3.0
  */
@@ -40,6 +42,8 @@ class Grammar
     ];
 
     /**
+     * Compiling the provided Builder.
+     *
      * @param Builder $query
      * @return string
      */
@@ -54,6 +58,8 @@ class Grammar
 
 
     /**
+     * Build all components based on $this->components.
+     *
      * @param Builder $query
      * @return string[]
      */
@@ -71,6 +77,8 @@ class Grammar
     }
 
     /**
+     * Build column component.
+     *
      * @param Builder $query
      * @param string[] $columns
      * @return string|null
@@ -81,6 +89,8 @@ class Grammar
     }
 
     /**
+     * Build from component
+     *
      * @param Builder $query
      * @param string $table
      * @return string
@@ -91,6 +101,8 @@ class Grammar
     }
 
     /**
+     * Build where component.
+     *
      * @param Builder $query
      * @param array<string[]> $wheres
      * @return string
@@ -105,17 +117,23 @@ class Grammar
     }
 
     /**
+     * Build all conditions to array.
+     *
      * @param Builder $query
      * @return string[]
      */
     protected function buildWheresToArray(Builder $query): array
     {
         return array_map(function ($where) use ($query) {
+            assert(is_string($where['type']));
+
             return $where['boolean'] . ' ' . $this->{"where{$where['type']}"}($query, $where);
         }, $query->wheres);
     }
 
     /**
+     * Build basic where clause.
+     *
      * @param Builder $query
      * @param string[] $where
      * @return string
@@ -126,6 +144,8 @@ class Grammar
     }
 
     /**
+     * Concat all components.
+     *
      * @param string[] $segments
      * @return string
      */

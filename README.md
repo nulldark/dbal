@@ -1,57 +1,35 @@
-# nulldark/dbal
+## nulldark/dbal
 
-## API Reference
-### Connection
+The DataBase Abstract Layer providing a fluent query and other many features. It currently supports MySQL, Postgres 
+and SQLite based on PDO. 
+
+### WARNING
+NOTE: The library is under development, the API is currently taking shape but there should be no breaking changes. 
+It is currently not recommended to use on production!
+
+### Usage Instructions
+
+First, create new Connection.
 ```php
-$config = [
-    'autoCommit' => FALSE,
-    'loggingQuery' => FALSE
-];
-    
-$params = [
-    'driver' => '',
-    'username' = '',
-    'password' => '',
-    'dbname' => ''
-];
-    
-$connection = \Nulldark\DBAL\ConnectionFactory($params, $config);
+$connection = new \Nulldark\DBAL\Connection([
+    'driver' => 'mysql',
+    'host' => 'localhost',
+    'username' => 'root',
+    'password' => 'password',
+    'database' => ':memory:'
+]);
 ```
 
-### Prepares and executes an SQL query and returns the result.
-`fetch(string $sql, array $params = [], int $mode = \PDO::FETCH_ASSOC): array`
-
+**Using The Query Builder**
 ```php
-$connection->fetch('SELECT 1+1');
-$connection->fetch('SELECT id FROM table WHERE id = ?', [3]);
+$results = $connection->query()
+    ->select('*')
+    ->from('table')
+    ->where('id', '>', 3)
+    ->get();
 ```
 
-### Prepares and executes an SQL query and returns the value of the first row of the result.
-`fetchOne(string $sql, array $params = [], int $mode = \PDO::FETCH_ASSOC): mixed`
+**Using The Core Methods**
 ```php
-$connection->fetchOne('SELECT 1+1');
-$connection->fetchOne('SELECT id FROM table WHERE id = ?', [3]);
-```
-
-### Prepares and executes an SQL query and returns the number of changed rows.
-`execute(string $sql, array $params = []): int`
-```php
-$connection->execute('INSERT INTO table VALUES(3);')
-```
-
-### Prepares and executes an SQL query.
-`query(string $sql, array $params = []): Result`
-```php
-$connection->query('SELECT 1+1');
-```
-
-### Transaction
-`beginTransaction(): bool`
-`commit(): bool`
-`rollback(): bool`
-
-```php
-$connection->beginTransaction();
-$connection->commit();
-$connection->rollBack();
+$results = $connection->select('SELECT id FROM table WHERE id = ?', [3]);
 ```

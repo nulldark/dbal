@@ -24,8 +24,7 @@ namespace Nulldark\DBAL\Contract;
 
 /**
  * @author Dominik Szamburski
- * @package DBAL
- * @subpackage Contract
+ * @package Nulldark\DBAL\Contract
  * @license LGPL-2.1
  * @version 0.3.0
  */
@@ -34,10 +33,10 @@ interface DriverFactoryInterface
     /**
      * Create a new driver instance.
      *
-     * @param array<string, string> $params
+     * @param string $driver
      * @return DriverInterface
      *
      * @thorws UnsupportedDriverException
      */
-    public function createDriver(#[\SensitiveParameter] array $params): DriverInterface;
+    public function createDriver(string $driver): DriverInterface;
 }
