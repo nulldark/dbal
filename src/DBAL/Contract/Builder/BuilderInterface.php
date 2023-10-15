@@ -66,7 +66,7 @@ interface BuilderInterface
     public function where(
         string $column,
         string $operator,
-        mixed$values,
+        mixed $values,
         string $boolean = 'AND'
     ): self;
 
