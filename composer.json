@@ -52,7 +52,7 @@
     "dev:test": [
       "@dev:lint",
       "@dev:analyze",
-      "@dev:test:unit"
+      "@dev:test:phpunit"
     ],
     "dev:test:coverage:html": "bin/phpunit --coverage-html .build/coverage/html/",
     "dev:test:phpunit": "bin/phpunit"
