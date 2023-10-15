@@ -1,15 +1,8 @@
-/.idea
-/.fleet
-/.vscode
+.idea/
+.build/
 
-.DS_Store
-Thumbs.db
-
-vendor/
-composer.phar
 composer.lock
+vendor/
 
-.php-cs-fixer.cache
-.phpunit.result.cache
-/.phpunit.cache
-/phpunit.xml
+phpcs.xml
+phpunit.xml
