@@ -138,7 +138,7 @@ final class DriverParams
 
     public function dsn(): string
     {
-        $dsn = "{$this->driver->name}:";
+        $dsn = strtolower($this->driver->name) . ":";
 
         if ($this->driver === Driver::SQLITE) {
             $dsn .= $this->getDatabase();
