@@ -20,38 +20,19 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  */
 
-namespace Nulldark\DBAL\Database\SQLite;
+namespace Nulldark\DBAL\Builder\Grammars;
 
-use Nulldark\DBAL\Builder\Grammars\SQLiteGrammar;
-use Nulldark\DBAL\Contract\ConnectionInterface;
+use Nulldark\DBAL\Builder\Grammars\Grammar;
 use Nulldark\DBAL\Contract\Builder\Grammars\GrammarInterface;
-use Nulldark\DBAL\Contract\DriverInterface;
-use Nulldark\DBAL\Database\BaseDriver;
-use Nulldark\DBAL\DriverParams;
 
 /**
- * @author Dominik Szamburski
- * @package Nulldark\DBAL\Database\SQLite
+ * @internal
+ *
+ * @author Damian Mosiński
+ * @package Nulldark\DBAL\Builder\Grammars
  * @license LGPL-2.1
  * @version 0.3.0
  */
-final class SQLiteDriver extends BaseDriver implements DriverInterface
+class MySqlGrammar extends Grammar implements GrammarInterface
 {
-    /**
-     * @inheritDoc
-     */
-    public function connect(DriverParams $params): ConnectionInterface
-    {
-        return new SQLiteConnection(
-            new \PDO($params->dsn())
-        );
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function getGrammar(): GrammarInterface
-    {
-        return new SQLiteGrammar();
-    }
 }

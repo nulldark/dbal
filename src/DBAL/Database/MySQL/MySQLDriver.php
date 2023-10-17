@@ -25,6 +25,8 @@ namespace Nulldark\DBAL\Database\MySQL;
 use Nulldark\DBAL\Contract\ConnectionInterface;
 use Nulldark\DBAL\Contract\DriverInterface;
 use Nulldark\DBAL\Database\BaseDriver;
+use Nulldark\DBAL\Contract\Builder\Grammars\GrammarInterface;
+use Nulldark\DBAL\Builder\Grammars\MySqlGrammar;
 use Nulldark\DBAL\DriverParams;
 use PDO;
 
@@ -55,5 +57,13 @@ final class MySQLDriver extends BaseDriver implements DriverInterface
                 $options
             )
         );
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getGrammar(): GrammarInterface
+    {
+        return new MySqlGrammar();
     }
 }
