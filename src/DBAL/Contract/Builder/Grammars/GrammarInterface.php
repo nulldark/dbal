@@ -26,7 +26,7 @@ namespace Nulldark\DBAL\Contract\Builder\Grammars;
  * @author Damian Mosiński
  * @package Nulldark\DBAL\Contract\Builder\Grammars
  * @license LGPL-2.1
- * @version 0.3.0
+ * @since 0.4.0
  */
 interface GrammarInterface
 {
