@@ -22,6 +22,7 @@
 
 namespace Nulldark\DBAL\Contract;
 
+use Nulldark\DBAL\Contract\Builder\Grammars\GrammarInterface;
 use Nulldark\DBAL\DriverParams;
 
 /**
@@ -41,4 +42,12 @@ interface DriverInterface
      * @thorws Exception
      */
     public function connect(DriverParams $params): ConnectionInterface;
+
+    /**
+     * Returns driver specific Grammar
+     *
+     * @return GrammarInterface
+     *
+     */
+    public function getGrammar(): GrammarInterface;
 }
