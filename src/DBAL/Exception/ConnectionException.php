@@ -20,28 +20,14 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  */
 
-namespace Nulldark\DBAL\Database\SQLite;
-
-use Nulldark\DBAL\Query\Grammars\GrammarInterface;
-use Nulldark\DBAL\Query\Grammars\SQLiteGrammar;
-use Nulldark\DBAL\Database\AbstractPlatform;
-use Nulldark\DBAL\Database\GenericDriver;
+namespace Nulldark\DBAL\Exception;
 
 /**
- * Provides a Low Level abstraction at top of SQLite.
- *
  * @author Dominik Szamburski
- * @package Nulldark\DBAL\Database\SQLite
+ * @package Nulldark\DBAL\Exception
  * @license LGPL-2.1
  * @version 0.5.0
  */
-final class SQLiteDriver extends GenericDriver
+class ConnectionException extends \RuntimeException
 {
-    /**
-     * @inheritDoc
-     */
-    public function getDatabasePlatform(): AbstractPlatform
-    {
-        return new SQLitePlatform();
-    }
 }

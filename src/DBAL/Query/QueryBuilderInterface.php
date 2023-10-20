@@ -20,10 +20,11 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  */
 
-namespace Nulldark\DBAL\Contract\Builder;
+namespace Nulldark\DBAL\Query;
 
 use InvalidArgumentException;
-use Nulldark\Collection\CollectionInterface;
+use Nulldark\DBAL\FetchMode;
+use Nulldark\Stdlib\Collections\CollectionInterface;
 
 /**
  * SQL Query Builder with fluid interface SQL.
@@ -33,7 +34,7 @@ use Nulldark\Collection\CollectionInterface;
  * @license LGPL-2.1
  * @version 0.3.0
  */
-interface BuilderInterface
+interface QueryBuilderInterface
 {
     /**
      * Set the columns to be selected.
@@ -80,7 +81,8 @@ interface BuilderInterface
     /**
      * Execute the "SELECT" Query.
      *
+     * @param \Nulldark\DBAL\FetchMode $fetchMode
      * @return CollectionInterface
      */
-    public function get(): CollectionInterface;
+    public function get(FetchMode $fetchMode = FetchMode::OBJECT): CollectionInterface;
 }

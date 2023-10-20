@@ -20,37 +20,16 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  */
 
-namespace Nulldark\DBAL\Database;
-
-use Nulldark\Collection\CollectionInterface;
+namespace Nulldark\DBAL\Query\Grammars;
 
 /**
- * @author Dominik Szamburski
- * @package Nulldark\DBAL\Database
+ * @internal
+ *
+ * @author Damian Mosiński
+ * @package Nulldark\DBAL\Builder\Grammars
  * @license LGPL-2.1
- * @version 0.3.0
+ * @since 0.5.0
  */
-final class Statement
+class SQLiteGrammar extends Grammar implements GrammarInterface
 {
-    public function __construct(
-        private readonly \PDOStatement $statement
-    ) {
-    }
-
-    /**
-     * Execute a prepared statement.
-     *
-     * @param mixed[] $params
-     * @return CollectionInterface
-     */
-    public function execute(array $params = []): CollectionInterface
-    {
-        try {
-            $this->statement->execute($params);
-        } catch (\PDOException $exception) {
-            throw $exception;
-        }
-
-        return new RecordCollection($this->statement);
-    }
 }

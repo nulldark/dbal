@@ -20,50 +20,27 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  */
 
-namespace Nulldark\DBAL\Database\MySQL;
+namespace Nulldark\DBAL\Database\Postgres;
 
-use Nulldark\DBAL\Contract\ConnectionInterface;
-use Nulldark\DBAL\Database\RecordCollection;
-use Nulldark\DBAL\Database\Statement;
-use PDO;
-use PDOStatement;
+use Nulldark\DBAL\Query\Grammars\GrammarInterface;
+use Nulldark\DBAL\Query\Grammars\PostgresGrammar;
+use Nulldark\DBAL\Database\AbstractPlatform;
 
 /**
+ * The PostgresPlatform class describes the specifics and dialects of the Postgres database platform.
+ *
  * @author Dominik Szamburski
- * @package Nulldark\DBAL\Database\MySQL
+ * @package Nulldark\DBAL\Database\Postgres
  * @license LGPL-2.1
- * @version 0.3.0
+ * @version 0.5.0
  */
-final class MySQLConnection implements ConnectionInterface
+final class PostgresPlatform extends AbstractPlatform
 {
-    public function __construct(
-        private readonly PDO $pdo
-    ) {
-    }
-
     /**
      * @inheritDoc
      */
-    public function query(string $query): RecordCollection
+    public function getGrammar(): GrammarInterface
     {
-        $statement = $this->pdo->query($query);
-        assert($statement instanceof PDOStatement);
-
-        return new RecordCollection(
-            $statement
-        );
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function prepare(string $query): Statement
-    {
-        $statement = $this->pdo->prepare($query);
-        assert($statement instanceof PDOStatement);
-
-        return new Statement(
-            $this->pdo->prepare($query)
-        );
+        return new PostgresGrammar();
     }
 }

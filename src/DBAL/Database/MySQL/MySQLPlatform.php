@@ -20,28 +20,27 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  */
 
-namespace Nulldark\DBAL\Database\SQLite;
+namespace Nulldark\DBAL\Database\MySQL;
 
 use Nulldark\DBAL\Query\Grammars\GrammarInterface;
-use Nulldark\DBAL\Query\Grammars\SQLiteGrammar;
+use Nulldark\DBAL\Query\Grammars\MySqlGrammar;
 use Nulldark\DBAL\Database\AbstractPlatform;
-use Nulldark\DBAL\Database\GenericDriver;
 
 /**
- * Provides a Low Level abstraction at top of SQLite.
+ * The MySQLPlatform class describes the specifics and dialects of the MySQL database platform.
  *
  * @author Dominik Szamburski
- * @package Nulldark\DBAL\Database\SQLite
+ * @package Nulldark\DBAL\Database\MySQL
  * @license LGPL-2.1
  * @version 0.5.0
  */
-final class SQLiteDriver extends GenericDriver
+final class MySQLPlatform extends AbstractPlatform
 {
     /**
      * @inheritDoc
      */
-    public function getDatabasePlatform(): AbstractPlatform
+    public function getGrammar(): GrammarInterface
     {
-        return new SQLitePlatform();
+        return new MySqlGrammar();
     }
 }

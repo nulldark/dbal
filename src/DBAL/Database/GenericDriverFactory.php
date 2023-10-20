@@ -22,41 +22,35 @@
 
 namespace Nulldark\DBAL\Database;
 
+use Nulldark\DBAL\Database\MySQL\MySQLDriver;
+use Nulldark\DBAL\Database\Postgres\PostgresDriver;
+use Nulldark\DBAL\Database\SQLite\SQLiteDriver;
+use Nulldark\DBAL\Exception\UnsupportedDriverException;
+
 /**
  * @author Dominik Szamburski
  * @package Nulldark\DBAL\Database
  * @license LGPL-2.1
- * @version 0.3.0
+ * @version 0.5.0
+ *
+ * @phpstan-import-type ConnectionParams from \Nulldark\DBAL\ConnectionManager
+ *
  */
-abstract class BaseDriver
+final class GenericDriverFactory
 {
     /**
-     * Build DSN connection string.
+     * @param ConnectionParams $params
+     * @return GenericDriverInterface
      *
-     * @param string $driver
-     * @param string[] $params
-     * @return string
+     * @throws UnsupportedDriverException
      */
-    protected function dsn(string $driver, array $params): string
+    public function createDriver(#[\SensitiveParameter] array $params): GenericDriverInterface
     {
-        $dsn = "$driver:";
-
-        if (isset($params['host'])) {
-            $dsn .= "host={$params['host']};";
-        }
-
-        if (isset($params['port'])) {
-            $dsn .= "port={$params['port']};";
-        }
-
-        if (isset($params['database'])) {
-            $dsn .= "dbname={$params['dbname']}";
-        }
-
-        if (isset($params['charset'])) {
-            $dsn .= "charset={$params['charset']}";
-        }
-
-        return $dsn;
+        return match ($params['driver']) {
+            'mysql' => new MySQLDriver($params),
+            'pqsql' => new PostgresDriver($params),
+            'sqlite' => new SQLiteDriver($params),
+            default => throw new UnsupportedDriverException("The given driver '{$params['driver']}' is unknown.")
+        };
     }
 }

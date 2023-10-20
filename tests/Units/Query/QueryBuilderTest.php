@@ -20,24 +20,24 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  */
 
-namespace Nulldark\Tests\Units\Builder;
+namespace Nulldark\Tests\Units\Query;
 
-use Nulldark\DBAL\Builder\Builder;
-use Nulldark\DBAL\Builder\Grammars\Grammar;
-use Nulldark\DBAL\Contract\Builder\BuilderInterface;
-use Nulldark\Tests\Fixtures\Connection;
+use Nulldark\DBAL\Query\QueryBuilder;
+use Nulldark\DBAL\Query\QueryBuilderInterface;
+use Nulldark\DBAL\Query\Grammars\Grammar;
+use Nulldark\Tests\Fixtures\DummyConnection;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 
-#[CoversClass(Builder::class)]
-class BuilderTest extends TestCase
+#[CoversClass(QueryBuilder::class)]
+class QueryBuilderTest extends TestCase
 {
-    private BuilderInterface $builder;
+    private QueryBuilderInterface $builder;
 
     public function setUp(): void
     {
-        $this->builder = new Builder(
-            new Connection()
+        $this->builder = new QueryBuilder(
+            new DummyConnection()
         );
 
         parent::setUp();
@@ -45,7 +45,7 @@ class BuilderTest extends TestCase
 
     public function testConstructor(): void
     {
-        $this->assertInstanceOf(BuilderInterface::class, $this->builder);
+        $this->assertInstanceOf(QueryBuilderInterface::class, $this->builder);
         $this->assertInstanceOf(Grammar::class, $this->builder->grammar);
     }
 
@@ -53,7 +53,7 @@ class BuilderTest extends TestCase
     {
         $query = $this->builder->select();
 
-        $this->assertInstanceOf(BuilderInterface::class, $query);
+        $this->assertInstanceOf(QueryBuilderInterface::class, $query);
         $this->assertEquals(['*'], $query->columns);
     }
 

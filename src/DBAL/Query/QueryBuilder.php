@@ -20,13 +20,14 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  */
 
-namespace Nulldark\DBAL\Builder;
+namespace Nulldark\DBAL\Query;
 
 use InvalidArgumentException;
-use Nulldark\Collection\CollectionInterface;
-use Nulldark\DBAL\Builder\Grammars\Grammar;
+use Nulldark\DBAL\ConnectionInterface;
+use Nulldark\DBAL\FetchMode;
+use Nulldark\DBAL\Query\Grammars\Grammar;
 use Nulldark\DBAL\Connection;
-use Nulldark\DBAL\Contract\Builder\BuilderInterface;
+use Nulldark\Stdlib\Collections\CollectionInterface;
 
 /**
  * @author Dominik Szamburski
@@ -34,7 +35,7 @@ use Nulldark\DBAL\Contract\Builder\BuilderInterface;
  * @license LGPL-2.1
  * @version 0.3.0
  */
-class Builder implements BuilderInterface
+class QueryBuilder implements QueryBuilderInterface
 {
     /** @var Grammar $grammar */
     public Grammar $grammar;
@@ -53,11 +54,11 @@ class Builder implements BuilderInterface
     /** @var array<array-key, mixed[]> $wheres */
     public array $wheres;
 
-    /** @var Connection $connection */
-    private Connection $connection;
+    /** @var ConnectionInterface $connection */
+    private ConnectionInterface $connection;
 
     public function __construct(
-        Connection $connection,
+        ConnectionInterface $connection,
         Grammar $grammar = null
     ) {
         $this->connection = $connection;
@@ -99,7 +100,7 @@ class Builder implements BuilderInterface
         string $operator,
         mixed $values,
         string $boolean = 'AND'
-    ): BuilderInterface {
+    ): QueryBuilderInterface {
         [$value, $operator] = $this->prepareValueAndOperator(
             $values,
             $operator,
@@ -132,11 +133,17 @@ class Builder implements BuilderInterface
     /**
      * @inheritDoc
      */
-    public function get(): CollectionInterface
+    public function get(FetchMode $fetchMode = FetchMode::OBJECT): CollectionInterface
     {
-        return $this->connection->select(
+        $result = $this->connection->query(
             $this->toSQL()
         );
+
+        return match ($fetchMode) {
+            FetchMode::ASSOC => $result->fetchAllAssociative(),
+            FetchMode::NUMERIC => $result->fetchAllNumeric(),
+            default => $result->fetchAllObject()
+        };
     }
 
     /**

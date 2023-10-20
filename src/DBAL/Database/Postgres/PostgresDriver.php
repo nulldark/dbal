@@ -22,38 +22,25 @@
 
 namespace Nulldark\DBAL\Database\Postgres;
 
-use Nulldark\DBAL\Contract\ConnectionInterface;
-use Nulldark\DBAL\Contract\DriverInterface;
-use Nulldark\DBAL\Database\BaseDriver;
-use Nulldark\DBAL\DriverParams;
-use PDO;
+use Nulldark\DBAL\Query\Grammars\GrammarInterface;
+use Nulldark\DBAL\Database\AbstractPlatform;
+use Nulldark\DBAL\Database\GenericDriver;
 
 /**
+ * Provides a Low Level abstraction at top of PostgreSQL.
+ *
  * @author Dominik Szamburski
- * @package Nulldark\DBAL\Database\Postgres
+ * @package Nulldark\DBAL\Database\Posgres
  * @license LGPL-2.1
- * @version 0.3.0
+ * @version 0.5.0
  */
-final class PostgresDriver extends BaseDriver implements DriverInterface
+final class PostgresDriver extends GenericDriver
 {
     /**
      * @inheritDoc
      */
-    public function connect(DriverParams $params): ConnectionInterface
+    public function getDatabasePlatform(): AbstractPlatform
     {
-        $options = $params->getOptions();
-
-        if (!empty($options['persistent'])) {
-            $options[PDO::ATTR_PERSISTENT] = true;
-        }
-
-        return new PostgresConnection(
-            new PDO(
-                $params->dsn(),
-                $params->getUsername(),
-                $params->getPassword(),
-                $options
-            )
-        );
+        return new PostgresPlatform();
     }
 }

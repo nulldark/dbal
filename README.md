@@ -13,16 +13,15 @@ First, create new Connection.
 ```php
 $connection = new \Nulldark\DBAL\Connection([
     'driver' => 'mysql',
-    'host' => 'localhost',
+    'dsn' => 'mysql:host=127.0.0.1;dbname=foo',
     'username' => 'root',
     'password' => 'password',
-    'database' => ':memory:'
 ]);
 ```
 
 **Using The Query Builder**
 ```php
-$results = $connection->query()
+$results = $connection->getQueryBuilder()
     ->select('*')
     ->from('table')
     ->where('id', '>', 3)
@@ -31,5 +30,12 @@ $results = $connection->query()
 
 **Using The Core Methods**
 ```php
-$results = $connection->select('SELECT id FROM table WHERE id = ?', [3]);
+// Simple Query
+$results = $connection->query('SELECT id FROM table WHERE id = 1')
+    ->fetchAllObject();
+
+// Prepared Statements
+$stmt = $connection->prepare('SELECT id FROM table WHERE id = ?')->execute();
+$results = $stmt->execute()
+    ->fetchAllObject();
 ```

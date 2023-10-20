@@ -20,25 +20,16 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  */
 
-namespace Nulldark\DBAL\Contract;
-
-use Nulldark\DBAL\DriverParams;
+namespace Nulldark\DBAL\Query\Grammars;
 
 /**
- * @author Dominik Szamburski
- * @package Nulldark\DBAL\Contract
+ * @internal
+ *
+ * @author Damian Mosiński
+ * @package Nulldark\DBAL\Builder\Grammars
  * @license LGPL-2.1
- * @version 0.3.0
+ * @since 0.5.0
  */
-interface DriverInterface
+class MySqlGrammar extends Grammar implements GrammarInterface
 {
-    /**
-     * Attempts to create a connection with the database.
-     *
-     * @param DriverParams $params
-     * @return ConnectionInterface
-     *
-     * @thorws Exception
-     */
-    public function connect(DriverParams $params): ConnectionInterface;
 }

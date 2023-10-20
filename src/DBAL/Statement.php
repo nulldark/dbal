@@ -20,50 +20,27 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  */
 
-namespace Nulldark\DBAL\Database\Postgres;
-
-use Nulldark\DBAL\Contract\ConnectionInterface;
-use Nulldark\DBAL\Database\RecordCollection;
-use Nulldark\DBAL\Database\Statement;
-use PDO;
-use PDOStatement;
+namespace Nulldark\DBAL;
 
 /**
  * @author Dominik Szamburski
- * @package Nulldark\DBAL\Database\Postgres
+ * @package Nulldark\DBAL
  * @license LGPL-2.1
- * @version 0.3.0
+ * @version 0.5.0
  */
-final class PostgresConnection implements ConnectionInterface
+final class Statement
 {
     public function __construct(
-        private readonly PDO $pdo
+        private readonly \PDOStatement $statement
     ) {
     }
 
-    /**
-     * @inheritDoc
-     */
-    public function query(string $query): RecordCollection
+    public function execute(): Result
     {
-        $statement = $this->pdo->query($query);
-        assert($statement instanceof PDOStatement);
+        $this->statement->execute();
 
-        return new RecordCollection(
-            $statement
-        );
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function prepare(string $query): Statement
-    {
-        $statement = $this->pdo->prepare($query);
-        assert($statement instanceof  PDOStatement);
-
-        return new Statement(
-            $this->pdo->prepare($query)
+        return new Result(
+            $this->statement
         );
     }
 }

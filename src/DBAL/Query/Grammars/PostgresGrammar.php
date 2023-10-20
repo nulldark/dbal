@@ -20,33 +20,16 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  */
 
-namespace Nulldark\DBAL;
-
-use Nulldark\DBAL\Contract\DriverFactoryInterface;
-use Nulldark\DBAL\Contract\DriverInterface;
-use Nulldark\DBAL\Database\MySQL\MySQLDriver;
-use Nulldark\DBAL\Database\Postgres\PostgresDriver;
-use Nulldark\DBAL\Database\SQLite\SQLiteDriver;
-use Nulldark\DBAL\Exception\UnsupportedDriverException;
+namespace Nulldark\DBAL\Query\Grammars;
 
 /**
- * @author Dominik Szamburski
- * @package Nulldark\DBAL
+ * @internal
+ *
+ * @author Damian Mosiński
+ * @package Nulldark\DBAL\Builder\Grammars
  * @license LGPL-2.1
- * @version 0.3.0
+ * @since 0.5.0
  */
-class DriverFactory implements DriverFactoryInterface
+class PostgresGrammar extends Grammar implements GrammarInterface
 {
-    /**
-     * @inheritDoc
-     */
-    public function createDriver(string $driver): DriverInterface
-    {
-        return match ($driver) {
-            'mysql' => new MySQLDriver(),
-            'pgsql' => new PostgresDriver(),
-            'sqlite' => new SQLiteDriver(),
-            default => throw new UnsupportedDriverException()
-        };
-    }
 }

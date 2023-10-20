@@ -10,7 +10,7 @@
   ],
   "require": {
     "ext-pdo": "*",
-    "nulldark/collection": "^1.0.0"
+    "nulldark/collection": "^2.0.0"
   },
   "require-dev": {
     "bamarni/composer-bin-plugin": "^1.8"

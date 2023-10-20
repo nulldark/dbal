@@ -20,32 +20,18 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  */
 
-namespace Nulldark\DBAL\Contract;
-
-use Nulldark\DBAL\Database\RecordCollection;
-use Nulldark\DBAL\Database\Statement;
+namespace Nulldark\DBAL;
 
 /**
  * @author Dominik Szamburski
- * @package Nulldark\DBAL\Contract
+ * @package Nulldark\DBAL
  * @license LGPL-2.1
- * @version 0.3.0
+ * @version 0.5.0
  */
-interface ConnectionInterface
+enum FetchMode: int
 {
-    /**
-     * Execute a query, returning a records collection.
-     *
-     * @param string $query
-     * @return RecordCollection
-     */
-    public function query(string $query): RecordCollection;
-
-    /**
-     * Prepares a query for execution.
-     *
-     * @param string $query
-     * @return Statement
-     */
-    public function prepare(string $query): Statement;
+    case ASSOC = \PDO::FETCH_ASSOC;
+    case COLUMN = \PDO::FETCH_COLUMN;
+    case NUMERIC = \PDO::FETCH_NUM;
+    case OBJECT = \PDO::FETCH_OBJ;
 }

@@ -22,19 +22,20 @@
 
 namespace Nulldark\DBAL\Database;
 
-use Nulldark\Collection\AbstractCollection;
-use PDO;
+use Nulldark\DBAL\Query\Grammars\GrammarInterface;
 
 /**
  * @author Dominik Szamburski
  * @package Nulldark\DBAL\Database
  * @license LGPL-2.1
- * @version 0.3.0
+ * @version 0.5.0
  */
-final class RecordCollection extends AbstractCollection
+abstract class AbstractPlatform
 {
-    public function __construct(private readonly \PDOStatement $statement)
-    {
-        parent::__construct($this->statement->fetchAll(PDO::FETCH_OBJ));
-    }
+    /**
+     * Gets a grammar for specify database platform.
+     *
+     * @return \Nulldark\DBAL\Query\Grammars\GrammarInterface
+     */
+    abstract public function getGrammar(): GrammarInterface;
 }

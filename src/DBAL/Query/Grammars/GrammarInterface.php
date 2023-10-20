@@ -20,23 +20,14 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  */
 
-namespace Nulldark\DBAL\Contract;
+namespace Nulldark\DBAL\Query\Grammars;
 
 /**
- * @author Dominik Szamburski
- * @package Nulldark\DBAL\Contract
+ * @author Damian Mosiński
+ * @package Nulldark\DBAL\Contract\Builder\Grammars
  * @license LGPL-2.1
- * @version 0.3.0
+ * @since 0.5.0
  */
-interface DriverFactoryInterface
+interface GrammarInterface
 {
-    /**
-     * Create a new driver instance.
-     *
-     * @param string $driver
-     * @return DriverInterface
-     *
-     * @thorws UnsupportedDriverException
-     */
-    public function createDriver(string $driver): DriverInterface;
 }

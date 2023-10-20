@@ -22,48 +22,25 @@
 
 namespace Nulldark\DBAL\Database\SQLite;
 
-use Nulldark\DBAL\Contract\ConnectionInterface;
-use Nulldark\DBAL\Database\RecordCollection;
-use Nulldark\DBAL\Database\Statement;
-use PDO;
-use PDOStatement;
+use Nulldark\DBAL\Query\Grammars\GrammarInterface;
+use Nulldark\DBAL\Query\Grammars\SQLiteGrammar;
+use Nulldark\DBAL\Database\AbstractPlatform;
 
 /**
+ * The SQLitePlatform class describes the specifics and dialects of the SQLite database platform.
+ *
  * @author Dominik Szamburski
  * @package Nulldark\DBAL\Database\SQLite
  * @license LGPL-2.1
- * @version 0.3.0
+ * @version 0.5.0
  */
-final class SQLiteConnection implements ConnectionInterface
+final class SQLitePlatform extends AbstractPlatform
 {
-    public function __construct(
-        private readonly PDO $pdo
-    ) {
-    }
-
     /**
      * @inheritDoc
      */
-    public function query(string $query): RecordCollection
+    public function getGrammar(): GrammarInterface
     {
-        $statement = $this->pdo->query($query);
-        assert($statement instanceof PDOStatement);
-
-        return new RecordCollection(
-            $statement
-        );
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function prepare(string $query): Statement
-    {
-        $statement = $this->pdo->prepare($query);
-        assert($statement instanceof PDOStatement);
-
-        return new Statement(
-            $this->pdo->prepare($query)
-        );
+        return new SQLiteGrammar();
     }
 }

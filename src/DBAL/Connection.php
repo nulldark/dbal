@@ -23,93 +23,95 @@
 namespace Nulldark\DBAL;
 
 use Closure;
-use Nulldark\Collection\CollectionInterface;
-use Nulldark\DBAL\Builder\Builder;
-use Nulldark\DBAL\Contract\Builder\BuilderInterface;
-use Nulldark\DBAL\Contract\ConnectionInterface;
-use Nulldark\DBAL\Contract\DriverFactoryInterface;
-use Nulldark\DBAL\Contract\DriverInterface;
+use Nulldark\DBAL\Query\QueryBuilder;
+use Nulldark\DBAL\Database\GenericDriverInterface;
 
 /**
+ * Connection class is a High Level of abstraction at top of Driver.
+ *
  * @author Dominik Szamburski
  * @package Nulldark\DBAL
  * @license LGPL-2.1
  * @version 0.3.0
- *
- * @phpstan-import-type ConnectionParams from DriverParams
  */
-class Connection
+class Connection implements ConnectionInterface
 {
-    /** @var DriverInterface $_driver */
-    private DriverInterface $driver;
-
-    /** @var ConnectionInterface|null $connection */
-    private ?ConnectionInterface $connection = null;
-
-    /** @var DriverParams $params  */
-    private DriverParams $params;
-
-    private DriverFactoryInterface $factory;
-
-    /**
-     * @param ConnectionParams $params
-     * @param DriverInterface|null $driver
-     */
     public function __construct(
-        #[\SensitiveParameter] array $params,
-        DriverInterface $driver = null
+        protected string $name,
+        protected GenericDriverInterface $driver,
     ) {
-        $this->factory = new DriverFactory();
-
-        if ($driver === null) {
-            $driver = $this->factory->createDriver($params['driver']);
-        }
-
-        $this->driver = $driver;
-        $this->params = new DriverParams($params);
     }
 
     /**
-     * Get new builder instance.
-     *
-     * @return BuilderInterface
+     * @inheritDoc
      */
-    public function query(): BuilderInterface
+    public function prepare(string $query): Statement
     {
-        return new Builder(
-            $this,
+        return new Statement(
+            $this->driver->prepare($query)
         );
     }
 
     /**
-     * Run a select statement.
-     *
-     * @param string $sql
-     * @param array<string, string|int|float> $params
-     * @return CollectionInterface
+     * @inheritDoc
      */
-    public function select(string $sql, array $params = []): CollectionInterface
+    public function query(string $query, array $parameters = []): Result
     {
-        return $this->run($sql, $params, function ($sql, $params) {
-            return $this->connection?->prepare($sql)
-                ->execute($params);
-        });
+        $stmt = $this->driver->query($query);
+        $stmt->execute();
+
+        return new Result(
+            $stmt
+        );
     }
 
     /**
-     * Run a SQL statement.
-     *
-     * @param string $sql
-     * @param array<string, mixed> $params
-     * @param Closure $callback
-     * @return CollectionInterface
+     * @inheritDoc
      */
-    private function run(string $sql, array $params, Closure $callback): CollectionInterface
+    public function getQueryBuilder(): QueryBuilder
     {
-        if ($this->connection === null) {
-            $this->connection = $this->driver->connect($this->params);
-        }
+        return new QueryBuilder($this);
+    }
 
-        return $callback($sql, $params);
+    /**
+     * @inheritDoc
+     */
+    public function beginTransaction(string $isolationLevel = null): bool
+    {
+        return $this->driver->beginTransaction($isolationLevel);
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function commit(): bool
+    {
+        return $this->driver->commit();
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function rollback(): bool
+    {
+        return $this->driver->rollback();
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function transaction(Closure $closure): mixed
+    {
+        $this->beginTransaction();
+
+        try {
+            $result = $closure($this);
+            $this->commit();
+
+            return $result;
+        } catch (\Throwable $e) {
+            $this->rollback();
+            throw $e;
+        }
     }
 }
