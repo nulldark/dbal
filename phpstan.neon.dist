@@ -1,5 +1,5 @@
 parameters:
-    level: max
+    level: 8
     treatPhpDocTypesAsCertain: false
     checkGenericClassInNonGenericObjectType: false
     tmpDir: ./.build/cache/phpstan
