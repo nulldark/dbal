@@ -20,9 +20,9 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  */
 
-namespace Nulldark\DBAL\Builder\Grammars;
+namespace Nulldark\DBAL\Query\Grammars;
 
-use Nulldark\DBAL\Builder\Builder;
+use Nulldark\DBAL\Query\QueryBuilder;
 
 /**
  * @internal
@@ -44,10 +44,10 @@ class Grammar
     /**
      * Compiling the provided Builder.
      *
-     * @param Builder $query
+     * @param QueryBuilder $query
      * @return string
      */
-    public function compile(Builder $query): string
+    public function compile(QueryBuilder $query): string
     {
         return trim(
             $this->concatenate(
@@ -60,10 +60,10 @@ class Grammar
     /**
      * Build all components based on $this->components.
      *
-     * @param Builder $query
+     * @param QueryBuilder $query
      * @return string[]
      */
-    protected function buildComponents(Builder $query): array
+    protected function buildComponents(QueryBuilder $query): array
     {
         $sql = [];
 
@@ -79,11 +79,11 @@ class Grammar
     /**
      * Build column component.
      *
-     * @param Builder $query
+     * @param QueryBuilder $query
      * @param string[] $columns
      * @return string|null
      */
-    protected function buildColumns(Builder $query, array $columns): ?string
+    protected function buildColumns(QueryBuilder $query, array $columns): ?string
     {
         return "SELECT " . implode(', ', $columns);
     }
@@ -91,11 +91,11 @@ class Grammar
     /**
      * Build from component
      *
-     * @param Builder $query
+     * @param QueryBuilder $query
      * @param string $table
      * @return string
      */
-    protected function buildFrom(Builder $query, string $table): string
+    protected function buildFrom(QueryBuilder $query, string $table): string
     {
         return "FROM " . $table;
     }
@@ -103,11 +103,11 @@ class Grammar
     /**
      * Build where component.
      *
-     * @param Builder $query
+     * @param QueryBuilder $query
      * @param array<string[]> $wheres
      * @return string
      */
-    protected function buildWheres(Builder $query, array $wheres): string
+    protected function buildWheres(QueryBuilder $query, array $wheres): string
     {
         if (count($sql = $this->buildWheresToArray($query)) > 0) {
             return "WHERE " . preg_replace('/and |or /i', '', implode(" ", $sql), 1);
@@ -119,10 +119,10 @@ class Grammar
     /**
      * Build all conditions to array.
      *
-     * @param Builder $query
+     * @param QueryBuilder $query
      * @return string[]
      */
-    protected function buildWheresToArray(Builder $query): array
+    protected function buildWheresToArray(QueryBuilder $query): array
     {
         return array_map(function ($where) use ($query) {
             assert(is_string($where['type']));
@@ -134,11 +134,11 @@ class Grammar
     /**
      * Build basic where clause.
      *
-     * @param Builder $query
+     * @param QueryBuilder $query
      * @param string[] $where
      * @return string
      */
-    protected function whereBasic(Builder $query, array $where): string
+    protected function whereBasic(QueryBuilder $query, array $where): string
     {
         return $where['column'] . ' ' . $where['operator'] . ' ' . $where['value'];
     }

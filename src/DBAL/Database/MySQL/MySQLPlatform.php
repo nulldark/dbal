@@ -22,8 +22,8 @@
 
 namespace Nulldark\DBAL\Database\MySQL;
 
-use Nulldark\DBAL\Builder\Grammars\GrammarInterface;
-use Nulldark\DBAL\Builder\Grammars\MySqlGrammar;
+use Nulldark\DBAL\Query\Grammars\GrammarInterface;
+use Nulldark\DBAL\Query\Grammars\MySqlGrammar;
 use Nulldark\DBAL\Database\AbstractPlatform;
 
 /**

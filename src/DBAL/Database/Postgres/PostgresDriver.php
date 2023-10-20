@@ -22,7 +22,7 @@
 
 namespace Nulldark\DBAL\Database\Postgres;
 
-use Nulldark\DBAL\Builder\Grammars\GrammarInterface;
+use Nulldark\DBAL\Query\Grammars\GrammarInterface;
 use Nulldark\DBAL\Database\AbstractPlatform;
 use Nulldark\DBAL\Database\GenericDriver;
 

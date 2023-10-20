@@ -23,7 +23,7 @@
 namespace Nulldark\DBAL;
 
 use Closure;
-use Nulldark\DBAL\Builder\Builder;
+use Nulldark\DBAL\Query\QueryBuilder;
 use Nulldark\DBAL\Database\GenericDriverInterface;
 
 /**
@@ -68,9 +68,9 @@ class Connection implements ConnectionInterface
     /**
      * @inheritDoc
      */
-    public function getQueryBuilder(): Builder
+    public function getQueryBuilder(): QueryBuilder
     {
-        return new Builder($this);
+        return new QueryBuilder($this);
     }
 
     /**

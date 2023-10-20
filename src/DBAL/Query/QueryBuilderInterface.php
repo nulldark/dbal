@@ -20,7 +20,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  */
 
-namespace Nulldark\DBAL\Builder;
+namespace Nulldark\DBAL\Query;
 
 use InvalidArgumentException;
 use Nulldark\Stdlib\Collections\CollectionInterface;
@@ -33,7 +33,7 @@ use Nulldark\Stdlib\Collections\CollectionInterface;
  * @license LGPL-2.1
  * @version 0.3.0
  */
-interface BuilderInterface
+interface QueryBuilderInterface
 {
     /**
      * Set the columns to be selected.

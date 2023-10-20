@@ -23,7 +23,7 @@
 namespace Nulldark\DBAL;
 
 use Closure;
-use Nulldark\DBAL\Builder\BuilderInterface;
+use Nulldark\DBAL\Query\QueryBuilderInterface;
 
 /**
  * Connection is High Level of abstraction used to represent single Database.
@@ -93,7 +93,7 @@ interface ConnectionInterface
     /**
      * Gets a new QueryBuilder instance.
      *
-     * @return \Nulldark\DBAL\Builder\BuilderInterface
+     * @return \Nulldark\DBAL\Query\QueryBuilderInterface
      */
-    public function getQueryBuilder(): BuilderInterface;
+    public function getQueryBuilder(): QueryBuilderInterface;
 }

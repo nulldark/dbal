@@ -22,7 +22,7 @@
 
 namespace Nulldark\DBAL\Database;
 
-use Nulldark\DBAL\Builder\Grammars\GrammarInterface;
+use Nulldark\DBAL\Query\Grammars\GrammarInterface;
 
 /**
  * @author Dominik Szamburski
@@ -35,7 +35,7 @@ abstract class AbstractPlatform
     /**
      * Gets a grammar for specify database platform.
      *
-     * @return \Nulldark\DBAL\Builder\Grammars\GrammarInterface
+     * @return \Nulldark\DBAL\Query\Grammars\GrammarInterface
      */
     abstract public function getGrammar(): GrammarInterface;
 }

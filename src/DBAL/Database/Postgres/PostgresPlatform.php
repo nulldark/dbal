@@ -22,8 +22,8 @@
 
 namespace Nulldark\DBAL\Database\Postgres;
 
-use Nulldark\DBAL\Builder\Grammars\GrammarInterface;
-use Nulldark\DBAL\Builder\Grammars\PostgresGrammar;
+use Nulldark\DBAL\Query\Grammars\GrammarInterface;
+use Nulldark\DBAL\Query\Grammars\PostgresGrammar;
 use Nulldark\DBAL\Database\AbstractPlatform;
 
 /**

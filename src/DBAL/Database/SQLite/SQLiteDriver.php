@@ -22,8 +22,8 @@
 
 namespace Nulldark\DBAL\Database\SQLite;
 
-use Nulldark\DBAL\Builder\Grammars\GrammarInterface;
-use Nulldark\DBAL\Builder\Grammars\SQLiteGrammar;
+use Nulldark\DBAL\Query\Grammars\GrammarInterface;
+use Nulldark\DBAL\Query\Grammars\SQLiteGrammar;
 use Nulldark\DBAL\Database\AbstractPlatform;
 use Nulldark\DBAL\Database\GenericDriver;
 

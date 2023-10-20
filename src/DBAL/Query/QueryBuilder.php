@@ -20,10 +20,10 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  */
 
-namespace Nulldark\DBAL\Builder;
+namespace Nulldark\DBAL\Query;
 
 use InvalidArgumentException;
-use Nulldark\DBAL\Builder\Grammars\Grammar;
+use Nulldark\DBAL\Query\Grammars\Grammar;
 use Nulldark\DBAL\Connection;
 use Nulldark\Stdlib\Collections\CollectionInterface;
 
@@ -33,7 +33,7 @@ use Nulldark\Stdlib\Collections\CollectionInterface;
  * @license LGPL-2.1
  * @version 0.3.0
  */
-class Builder implements BuilderInterface
+class QueryBuilder implements QueryBuilderInterface
 {
     /** @var Grammar $grammar */
     public Grammar $grammar;
@@ -98,7 +98,7 @@ class Builder implements BuilderInterface
         string $operator,
         mixed $values,
         string $boolean = 'AND'
-    ): BuilderInterface {
+    ): QueryBuilderInterface {
         [$value, $operator] = $this->prepareValueAndOperator(
             $values,
             $operator,
