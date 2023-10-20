@@ -58,4 +58,11 @@ interface GenericDriverInterface
      * @return PDOStatement
      */
     public function query(string $query): PDOStatement;
+
+    /**
+     * Returns a database platform.
+     *
+     * @return AbstractPlatform
+     */
+    public function getDatabasePlatform(): AbstractPlatform;
 }

@@ -24,6 +24,7 @@ namespace Nulldark\DBAL\Database\MySQL;
 
 use Nulldark\DBAL\Builder\Grammars\GrammarInterface;
 use Nulldark\DBAL\Builder\Grammars\MySqlGrammar;
+use Nulldark\DBAL\Database\AbstractPlatform;
 use Nulldark\DBAL\Database\GenericDriver;
 
 /**
@@ -42,5 +43,13 @@ final class MySQLDriver extends GenericDriver
     public function getGrammar(): GrammarInterface
     {
         return new MySqlGrammar();
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getDatabasePlatform(): AbstractPlatform
+    {
+        return new MySQLPlatform();
     }
 }

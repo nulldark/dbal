@@ -20,36 +20,19 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  */
 
-namespace Nulldark\DBAL\Database\Postgres;
+namespace Nulldark\DBAL\Database\SQLite;
 
-use Nulldark\DBAL\Builder\Grammars\GrammarInterface;
-use Nulldark\DBAL\Builder\Grammars\PostgressGrammar;
 use Nulldark\DBAL\Database\AbstractPlatform;
-use Nulldark\DBAL\Database\GenericDriver;
 
 /**
- *  Provides a Low Level abstraction at top of PostgreSQL.
+ * The SQLitePlatform class describes the specifics and dialects of the SQLite database platform.
  *
  * @author Dominik Szamburski
- * @package Nulldark\DBAL\Database\Posgres
+ * @package Nulldark\DBAL\Database\SQLite
  * @license LGPL-2.1
  * @version 0.5.0
  */
-final class PostgresDriver extends GenericDriver
+final class SQLitePlatform extends AbstractPlatform
 {
-    /**
-     * @inheritDoc
-     */
-    public function getGrammar(): GrammarInterface
-    {
-        return new PostgressGrammar();
-    }
 
-    /**
-     * @inheritDoc
-     */
-    public function getDatabasePlatform(): AbstractPlatform
-    {
-        return new PostgresPlatform();
-    }
 }
