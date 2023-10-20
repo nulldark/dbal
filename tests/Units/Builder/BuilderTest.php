@@ -25,7 +25,7 @@ namespace Nulldark\Tests\Units\Builder;
 use Nulldark\DBAL\Builder\Builder;
 use Nulldark\DBAL\Builder\BuilderInterface;
 use Nulldark\DBAL\Builder\Grammars\Grammar;
-use Nulldark\Tests\Fixtures\Connection;
+use Nulldark\Tests\Fixtures\DummyConnection;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 
@@ -37,7 +37,7 @@ class BuilderTest extends TestCase
     public function setUp(): void
     {
         $this->builder = new Builder(
-            new Connection()
+            new DummyConnection()
         );
 
         parent::setUp();

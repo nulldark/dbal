@@ -30,7 +30,7 @@ final class GenericDriverFactory
             'mysql' => new MySQLDriver($params),
             'pqsql' => new PostgresDriver($params),
             'sqlite' => new SQLiteDriver($params),
-            default => throw new UnsupportedDriverException()
+            default => throw new UnsupportedDriverException("The given driver '{$params['driver']}' is unknown.")
         };
     }
 }
