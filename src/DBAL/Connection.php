@@ -71,4 +71,28 @@ class Connection implements ConnectionInterface
     {
         return new Builder($this);
     }
+
+    /**
+     * @inheritDoc
+     */
+    public function beginTransaction(string $isolationLevel = null): bool
+    {
+        return $this->driver->beginTransaction($isolationLevel);
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function commit(): bool
+    {
+        return $this->driver->commit();
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function rollback(): bool
+    {
+        return $this->driver->rollback();
+    }
 }

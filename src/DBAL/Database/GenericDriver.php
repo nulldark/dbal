@@ -37,6 +37,8 @@ use PDOStatement;
  */
 abstract class GenericDriver implements GenericDriverInterface
 {
+    protected int $transactionLevel = 0;
+
     protected ?PDO $pdo = null;
 
     /**
@@ -67,6 +69,68 @@ abstract class GenericDriver implements GenericDriverInterface
         assert($stmt instanceof PDOStatement);
 
         return $stmt;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function beginTransaction(string $isolationLevel = null): bool
+    {
+        ++$this->transactionLevel;
+
+        if ($this->transactionLevel === 1) {
+            try {
+                return $this->getPDO()->beginTransaction();
+            } catch (\Throwable $e) {
+                $this->transactionLevel = 0;
+
+                throw $e;
+            }
+        }
+
+        return true;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function commit(): bool
+    {
+        if (!$this->getPDO()->inTransaction()) {
+            if ($this->transactionLevel === 0) {
+                return false;
+            }
+
+            $this->transactionLevel = 0;
+            return true;
+        }
+
+        --$this->transactionLevel;
+
+        if ($this->transactionLevel === 0) {
+            return $this->getPDO()->commit();
+        }
+
+        return true;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function rollback(): bool
+    {
+        if (!$this->getPDO()->inTransaction()) {
+            $this->transactionLevel = 0;
+            return true;
+        }
+
+        --$this->transactionLevel;
+
+        if ($this->transactionLevel === 0) {
+            return $this->getPDO()->rollBack();
+        }
+
+        return true;
     }
 
     /**

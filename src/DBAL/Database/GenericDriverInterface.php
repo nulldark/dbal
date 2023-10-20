@@ -60,6 +60,28 @@ interface GenericDriverInterface
     public function query(string $query): PDOStatement;
 
     /**
+     * Start SQL transaction with specified isolation level.
+     *
+     * @param string|null $isolationLevel
+     * @return bool True of success.
+     */
+    public function beginTransaction(string $isolationLevel = null): bool;
+
+    /**
+     * Commit the active transaction.
+     *
+     * @return bool True of success.
+     */
+    public function commit(): bool;
+
+    /**
+     * Rollback the active transaction.
+     *
+     * @return bool True of success.
+     */
+    public function rollback(): bool;
+
+    /**
      * Returns a database platform.
      *
      * @return AbstractPlatform

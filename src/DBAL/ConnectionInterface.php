@@ -54,6 +54,28 @@ interface ConnectionInterface
     public function query(string $query, array $parameters = []): Result;
 
     /**
+     * Starts database transaction.
+     *
+     * @param string|null $isolationLevel
+     * @return bool
+     */
+    public function beginTransaction(string $isolationLevel = null): bool;
+
+    /**
+     * Commit the active transaction.
+     *
+     * @return bool
+     */
+    public function commit(): bool;
+
+    /**
+     * Rollback the active transaction.
+     *
+     * @return bool
+     */
+    public function rollback(): bool;
+
+    /**
      * Gets a new QueryBuilder instance.
      *
      * @return \Nulldark\DBAL\Builder\BuilderInterface
