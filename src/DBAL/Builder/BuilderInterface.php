@@ -20,10 +20,10 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  */
 
-namespace Nulldark\DBAL\Contract\Builder;
+namespace Nulldark\DBAL\Builder;
 
 use InvalidArgumentException;
-use Nulldark\Collection\CollectionInterface;
+use Nulldark\Stdlib\Collections\CollectionInterface;
 
 /**
  * SQL Query Builder with fluid interface SQL.

@@ -22,26 +22,16 @@
 
 namespace Nulldark\DBAL\Database\SQLite;
 
-use Nulldark\DBAL\Contract\ConnectionInterface;
-use Nulldark\DBAL\Contract\DriverInterface;
-use Nulldark\DBAL\Database\BaseDriver;
-use Nulldark\DBAL\DriverParams;
+use Nulldark\DBAL\Database\GenericDriver;
 
 /**
+ * Provides a Low Level abstraction at top of SQLite.
+ *
  * @author Dominik Szamburski
- * @package Nulldark\DBAL\Database\SQLite
+ * @package Nulldark\DBAL\Database\MySQL
  * @license LGPL-2.1
- * @version 0.3.0
+ * @version 0.5.0
  */
-final class SQLiteDriver extends BaseDriver implements DriverInterface
+final class SQLiteDriver extends GenericDriver
 {
-    /**
-     * @inheritDoc
-     */
-    public function connect(DriverParams $params): ConnectionInterface
-    {
-        return new SQLiteConnection(
-            new \PDO($params->dsn())
-        );
-    }
 }

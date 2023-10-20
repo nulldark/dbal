@@ -20,50 +20,43 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  */
 
-namespace Nulldark\DBAL\Database\SQLite;
+namespace Nulldark\DBAL;
 
-use Nulldark\DBAL\Contract\ConnectionInterface;
-use Nulldark\DBAL\Database\RecordCollection;
-use Nulldark\DBAL\Database\Statement;
-use PDO;
-use PDOStatement;
+use Nulldark\DBAL\Builder\BuilderInterface;
 
 /**
+ * Connection is High Level of abstraction used to represent single Database.
+ *
  * @author Dominik Szamburski
- * @package Nulldark\DBAL\Database\SQLite
+ * @package Nulldark\DBAL
  * @license LGPL-2.1
- * @version 0.3.0
+ * @since 0.5.0
  */
-final class SQLiteConnection implements ConnectionInterface
+interface ConnectionInterface
 {
-    public function __construct(
-        private readonly PDO $pdo
-    ) {
-    }
+    /**
+     * Prepares an SQL statement.
+     *
+     * @param string $query
+     *
+     * @return Statement
+     */
+    public function prepare(string $query): Statement;
 
     /**
-     * @inheritDoc
+     * Executes an, optionally parameterized, SQL query.
+     *
+     * @param string                            $query
+     * @param list<mixed>|array<string, mixed>  $parameters
+     *
+     * @return Result
      */
-    public function query(string $query): RecordCollection
-    {
-        $statement = $this->pdo->query($query);
-        assert($statement instanceof PDOStatement);
-
-        return new RecordCollection(
-            $statement
-        );
-    }
+    public function query(string $query, array $parameters = []): Result;
 
     /**
-     * @inheritDoc
+     * Gets a new QueryBuilder instance.
+     *
+     * @return \Nulldark\DBAL\Builder\BuilderInterface
      */
-    public function prepare(string $query): Statement
-    {
-        $statement = $this->pdo->prepare($query);
-        assert($statement instanceof PDOStatement);
-
-        return new Statement(
-            $this->pdo->prepare($query)
-        );
-    }
+    public function getQueryBuilder(): BuilderInterface;
 }

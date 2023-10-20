@@ -20,15 +20,13 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  */
 
-namespace Nulldark\DBAL\Database;
-
-use Nulldark\Collection\CollectionInterface;
+namespace Nulldark\DBAL;
 
 /**
  * @author Dominik Szamburski
- * @package Nulldark\DBAL\Database
+ * @package Nulldark\DBAL
  * @license LGPL-2.1
- * @version 0.3.0
+ * @version 0.5.0
  */
 final class Statement
 {
@@ -37,20 +35,12 @@ final class Statement
     ) {
     }
 
-    /**
-     * Execute a prepared statement.
-     *
-     * @param mixed[] $params
-     * @return CollectionInterface
-     */
-    public function execute(array $params = []): CollectionInterface
+    public function execute(): Result
     {
-        try {
-            $this->statement->execute($params);
-        } catch (\PDOException $exception) {
-            throw $exception;
-        }
+        $this->statement->execute();
 
-        return new RecordCollection($this->statement);
+        return new Result(
+            $this->statement
+        );
     }
 }

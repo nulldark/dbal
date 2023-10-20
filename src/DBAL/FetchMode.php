@@ -20,23 +20,18 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  */
 
-namespace Nulldark\DBAL\Contract;
+namespace Nulldark\DBAL;
 
 /**
  * @author Dominik Szamburski
- * @package Nulldark\DBAL\Contract
+ * @package Nulldark\DBAL
  * @license LGPL-2.1
- * @version 0.3.0
+ * @version 0.5.0
  */
-interface DriverFactoryInterface
+enum FetchMode: int
 {
-    /**
-     * Create a new driver instance.
-     *
-     * @param string $driver
-     * @return DriverInterface
-     *
-     * @thorws UnsupportedDriverException
-     */
-    public function createDriver(string $driver): DriverInterface;
+    case ASSOC = \PDO::FETCH_ASSOC;
+    case COLUMN = \PDO::FETCH_COLUMN;
+    case NUMERIC = \PDO::FETCH_NUM;
+    case OBJECT = \PDO::FETCH_OBJ;
 }

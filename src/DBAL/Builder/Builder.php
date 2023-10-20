@@ -23,10 +23,9 @@
 namespace Nulldark\DBAL\Builder;
 
 use InvalidArgumentException;
-use Nulldark\Collection\CollectionInterface;
 use Nulldark\DBAL\Builder\Grammars\Grammar;
 use Nulldark\DBAL\Connection;
-use Nulldark\DBAL\Contract\Builder\BuilderInterface;
+use Nulldark\Stdlib\Collections\CollectionInterface;
 
 /**
  * @author Dominik Szamburski
@@ -134,9 +133,9 @@ class Builder implements BuilderInterface
      */
     public function get(): CollectionInterface
     {
-        return $this->connection->select(
+        return $this->connection->query(
             $this->toSQL()
-        );
+        )->fetchAllObject();
     }
 
     /**
