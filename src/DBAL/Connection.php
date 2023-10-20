@@ -22,6 +22,7 @@
 
 namespace Nulldark\DBAL;
 
+use Closure;
 use Nulldark\DBAL\Builder\Builder;
 use Nulldark\DBAL\Database\GenericDriverInterface;
 
@@ -94,5 +95,23 @@ class Connection implements ConnectionInterface
     public function rollback(): bool
     {
         return $this->driver->rollback();
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function transaction(Closure $closure): mixed
+    {
+        $this->beginTransaction();
+
+        try {
+            $result = $closure($this);
+            $this->commit();
+
+            return $result;
+        } catch (\Throwable $e) {
+            $this->rollback();
+            throw $e;
+        }
     }
 }

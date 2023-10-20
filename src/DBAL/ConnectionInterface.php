@@ -22,6 +22,7 @@
 
 namespace Nulldark\DBAL;
 
+use Closure;
 use Nulldark\DBAL\Builder\BuilderInterface;
 
 /**
@@ -54,10 +55,22 @@ interface ConnectionInterface
     public function query(string $query, array $parameters = []): Result;
 
     /**
+     * Execute a Closure within a transaction.
+     *
+     * @param \Closure $closure
+     * @return mixed
+     *
+     * @throws \Throwable
+     * @since 0.5.0
+     */
+    public function transaction(Closure $closure): mixed;
+
+    /**
      * Starts database transaction.
      *
      * @param string|null $isolationLevel
      * @return bool
+     * @since 0.5.0
      */
     public function beginTransaction(string $isolationLevel = null): bool;
 
@@ -65,6 +78,7 @@ interface ConnectionInterface
      * Commit the active transaction.
      *
      * @return bool
+     * @since 0.5.0
      */
     public function commit(): bool;
 
@@ -72,6 +86,7 @@ interface ConnectionInterface
      * Rollback the active transaction.
      *
      * @return bool
+     * @since 0.5.0
      */
     public function rollback(): bool;
 
