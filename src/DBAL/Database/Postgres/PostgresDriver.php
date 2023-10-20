@@ -27,7 +27,7 @@ use Nulldark\DBAL\Database\AbstractPlatform;
 use Nulldark\DBAL\Database\GenericDriver;
 
 /**
- *  Provides a Low Level abstraction at top of PostgreSQL.
+ * Provides a Low Level abstraction at top of PostgreSQL.
  *
  * @author Dominik Szamburski
  * @package Nulldark\DBAL\Database\Posgres
