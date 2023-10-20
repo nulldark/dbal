@@ -6,7 +6,6 @@ use Nulldark\DBAL\Builder\Grammars\GrammarInterface;
 
 abstract class AbstractPlatform
 {
-
     /**
      * Gets a grammar for specify database platform.
      *
