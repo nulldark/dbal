@@ -22,9 +22,9 @@
 
 namespace Nulldark\DBAL\Database\Postgres;
 
-use Nulldark\DBAL\Database\GenericDriver;
-use Nulldark\DBAL\Contract\Builder\Grammars\GrammarInterface;
+use Nulldark\DBAL\Builder\Grammars\GrammarInterface;
 use Nulldark\DBAL\Builder\Grammars\PostgressGrammar;
+use Nulldark\DBAL\Database\GenericDriver;
 
 /**
  *  Provides a Low Level abstraction at top of PostgreSQL.

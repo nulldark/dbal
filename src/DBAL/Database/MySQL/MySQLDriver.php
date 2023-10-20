@@ -22,9 +22,9 @@
 
 namespace Nulldark\DBAL\Database\MySQL;
 
-use Nulldark\DBAL\Database\GenericDriver;
-use Nulldark\DBAL\Contract\Builder\Grammars\GrammarInterface;
+use Nulldark\DBAL\Builder\Grammars\GrammarInterface;
 use Nulldark\DBAL\Builder\Grammars\MySqlGrammar;
+use Nulldark\DBAL\Database\GenericDriver;
 
 /**
  *  Provides a Low Level abstraction at top of MySQL.

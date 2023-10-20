@@ -22,16 +22,13 @@
 
 namespace Nulldark\DBAL\Builder\Grammars;
 
-use Nulldark\DBAL\Builder\Grammars\Grammar;
-use Nulldark\DBAL\Contract\Builder\Grammars\GrammarInterface;
-
 /**
  * @internal
  *
  * @author Damian Mosiński
  * @package Nulldark\DBAL\Builder\Grammars
  * @license LGPL-2.1
- * @since 0.4.0
+ * @since 0.5.0
  */
 class SQLiteGrammar extends Grammar implements GrammarInterface
 {

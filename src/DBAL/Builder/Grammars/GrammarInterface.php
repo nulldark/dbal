@@ -20,13 +20,13 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  */
 
-namespace Nulldark\DBAL\Contract\Builder\Grammars;
+namespace Nulldark\DBAL\Builder\Grammars;
 
 /**
  * @author Damian Mosiński
  * @package Nulldark\DBAL\Contract\Builder\Grammars
  * @license LGPL-2.1
- * @since 0.4.0
+ * @since 0.5.0
  */
 interface GrammarInterface
 {

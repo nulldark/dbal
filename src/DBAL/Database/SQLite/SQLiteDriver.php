@@ -22,10 +22,9 @@
 
 namespace Nulldark\DBAL\Database\SQLite;
 
-use Nulldark\DBAL\Database\GenericDriver;
+use Nulldark\DBAL\Builder\Grammars\GrammarInterface;
 use Nulldark\DBAL\Builder\Grammars\SQLiteGrammar;
-use Nulldark\DBAL\Contract\Builder\Grammars\GrammarInterface;
-
+use Nulldark\DBAL\Database\GenericDriver;
 
 /**
  * Provides a Low Level abstraction at top of SQLite.
