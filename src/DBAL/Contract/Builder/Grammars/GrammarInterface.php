@@ -20,27 +20,14 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  */
 
-namespace Nulldark\DBAL\Database\Postgres;
-
-use Nulldark\DBAL\Database\GenericDriver;
-use Nulldark\DBAL\Contract\Builder\Grammars\GrammarInterface;
-use Nulldark\DBAL\Builder\Grammars\PostgressGrammar;
+namespace Nulldark\DBAL\Contract\Builder\Grammars;
 
 /**
- *  Provides a Low Level abstraction at top of PostgreSQL.
- *
- * @author Dominik Szamburski
- * @package Nulldark\DBAL\Database\Posgres
+ * @author Damian Mosiński
+ * @package Nulldark\DBAL\Contract\Builder\Grammars
  * @license LGPL-2.1
- * @version 0.5.0
+ * @since 0.4.0
  */
-final class PostgresDriver extends GenericDriver
+interface GrammarInterface
 {
-    /**
-     * @inheritDoc
-     */
-    public function getGrammar(): GrammarInterface
-    {
-        return new PostgressGrammar();
-    }
 }

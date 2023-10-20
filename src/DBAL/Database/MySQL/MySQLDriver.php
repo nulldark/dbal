@@ -23,6 +23,8 @@
 namespace Nulldark\DBAL\Database\MySQL;
 
 use Nulldark\DBAL\Database\GenericDriver;
+use Nulldark\DBAL\Contract\Builder\Grammars\GrammarInterface;
+use Nulldark\DBAL\Builder\Grammars\MySqlGrammar;
 
 /**
  *  Provides a Low Level abstraction at top of MySQL.
@@ -34,4 +36,11 @@ use Nulldark\DBAL\Database\GenericDriver;
  */
 final class MySQLDriver extends GenericDriver
 {
+    /**
+     * @inheritDoc
+     */
+    public function getGrammar(): GrammarInterface
+    {
+        return new MySqlGrammar();
+    }
 }
