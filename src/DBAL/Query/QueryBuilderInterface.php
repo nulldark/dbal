@@ -23,6 +23,7 @@
 namespace Nulldark\DBAL\Query;
 
 use InvalidArgumentException;
+use Nulldark\DBAL\FetchMode;
 use Nulldark\Stdlib\Collections\CollectionInterface;
 
 /**
@@ -80,7 +81,8 @@ interface QueryBuilderInterface
     /**
      * Execute the "SELECT" Query.
      *
+     * @param \Nulldark\DBAL\FetchMode $fetchMode
      * @return CollectionInterface
      */
-    public function get(): CollectionInterface;
+    public function get(FetchMode $fetchMode = FetchMode::OBJECT): CollectionInterface;
 }

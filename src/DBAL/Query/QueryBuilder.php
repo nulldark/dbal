@@ -23,6 +23,8 @@
 namespace Nulldark\DBAL\Query;
 
 use InvalidArgumentException;
+use Nulldark\DBAL\ConnectionInterface;
+use Nulldark\DBAL\FetchMode;
 use Nulldark\DBAL\Query\Grammars\Grammar;
 use Nulldark\DBAL\Connection;
 use Nulldark\Stdlib\Collections\CollectionInterface;
@@ -52,11 +54,11 @@ class QueryBuilder implements QueryBuilderInterface
     /** @var array<array-key, mixed[]> $wheres */
     public array $wheres;
 
-    /** @var Connection $connection */
-    private Connection $connection;
+    /** @var ConnectionInterface $connection */
+    private ConnectionInterface $connection;
 
     public function __construct(
-        Connection $connection,
+        ConnectionInterface $connection,
         Grammar $grammar = null
     ) {
         $this->connection = $connection;
@@ -131,11 +133,17 @@ class QueryBuilder implements QueryBuilderInterface
     /**
      * @inheritDoc
      */
-    public function get(): CollectionInterface
+    public function get(FetchMode $fetchMode = FetchMode::OBJECT): CollectionInterface
     {
-        return $this->connection->query(
+        $result = $this->connection->query(
             $this->toSQL()
-        )->fetchAllObject();
+        );
+
+        return match ($fetchMode) {
+            FetchMode::ASSOC => $result->fetchAllAssociative(),
+            FetchMode::NUMERIC => $result->fetchAllNumeric(),
+            default => $result->fetchAllObject()
+        };
     }
 
     /**
