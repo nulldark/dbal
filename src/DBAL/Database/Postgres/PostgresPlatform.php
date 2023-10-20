@@ -2,6 +2,8 @@
 
 namespace Nulldark\DBAL\Database\Postgres;
 
+use Nulldark\DBAL\Builder\Grammars\GrammarInterface;
+use Nulldark\DBAL\Builder\Grammars\PostgresGrammar;
 use Nulldark\DBAL\Database\AbstractPlatform;
 
 /**
@@ -14,5 +16,11 @@ use Nulldark\DBAL\Database\AbstractPlatform;
  */
 final class PostgresPlatform extends AbstractPlatform
 {
-
+    /**
+     * @inheritDoc
+     */
+    public function getGrammar(): GrammarInterface
+    {
+        return new PostgresGrammar();
+    }
 }

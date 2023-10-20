@@ -22,6 +22,8 @@
 
 namespace Nulldark\DBAL\Database\SQLite;
 
+use Nulldark\DBAL\Builder\Grammars\GrammarInterface;
+use Nulldark\DBAL\Builder\Grammars\SQLiteGrammar;
 use Nulldark\DBAL\Database\AbstractPlatform;
 
 /**
@@ -34,5 +36,11 @@ use Nulldark\DBAL\Database\AbstractPlatform;
  */
 final class SQLitePlatform extends AbstractPlatform
 {
-
+    /**
+     * @inheritDoc
+     */
+    public function getGrammar(): GrammarInterface
+    {
+        return new SQLiteGrammar();
+    }
 }

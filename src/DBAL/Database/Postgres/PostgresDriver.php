@@ -40,14 +40,6 @@ final class PostgresDriver extends GenericDriver
     /**
      * @inheritDoc
      */
-    public function getGrammar(): GrammarInterface
-    {
-        return new PostgressGrammar();
-    }
-
-    /**
-     * @inheritDoc
-     */
     public function getDatabasePlatform(): AbstractPlatform
     {
         return new PostgresPlatform();

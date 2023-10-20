@@ -40,14 +40,6 @@ final class SQLiteDriver extends GenericDriver
     /**
      * @inheritDoc
      */
-    public function getGrammar(): GrammarInterface
-    {
-        return new SQLiteGrammar();
-    }
-
-    /**
-     * @inheritDoc
-     */
     public function getDatabasePlatform(): AbstractPlatform
     {
         return new SQLitePlatform();

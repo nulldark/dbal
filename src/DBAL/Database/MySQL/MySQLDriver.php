@@ -40,14 +40,6 @@ final class MySQLDriver extends GenericDriver
     /**
      * @inheritDoc
      */
-    public function getGrammar(): GrammarInterface
-    {
-        return new MySqlGrammar();
-    }
-
-    /**
-     * @inheritDoc
-     */
     public function getDatabasePlatform(): AbstractPlatform
     {
         return new MySQLPlatform();
