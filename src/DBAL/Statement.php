@@ -35,6 +35,34 @@ final class Statement
     ) {
     }
 
+    /**
+     * Binds a value to parameter.
+     *
+     * @param int|string $param
+     * @param mixed $value
+     * @param ParameterType $type
+     *
+     * @return void
+     */
+    public function bindValue(int|string $param, mixed $value, ParameterType $type = ParameterType::STRING): void
+    {
+        $pdoType = match ($type) {
+            ParameterType::NULL => \PDO::PARAM_NULL,
+            ParameterType::INTEGER => \PDO::PARAM_INT,
+            ParameterType::STRING => \PDO::PARAM_STR,
+            ParameterType::BINARY,
+            ParameterType::LARGE_OBJECT => \PDO::PARAM_LOB,
+            ParameterType::BOOLEAN => \PDO::PARAM_BOOL
+        };
+
+        $this->statement->bindValue($param, $value, $pdoType);
+    }
+
+    /**
+     * Executes a statement then return Result instance.
+     *
+     * @return Result
+     */
     public function execute(): Result
     {
         $this->statement->execute();
