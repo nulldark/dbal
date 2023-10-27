@@ -23,6 +23,8 @@
 namespace Nulldark\DBAL\Query\Grammars;
 
 use Nulldark\DBAL\Query\QueryBuilder;
+use Nulldark\DBAL\Query\QueryBuilderInterface;
+use Nulldark\DBAL\Query\QueryType;
 
 /**
  * @internal
@@ -30,129 +32,106 @@ use Nulldark\DBAL\Query\QueryBuilder;
  * @author Dominik Szamburski
  * @package Nulldark\DBAL\Builder\Grammars
  * @license LGPL-2.1
- * @version 0.3.0
+ * @since 0.3.0
  */
-class Grammar
+class Grammar implements GrammarInterface
 {
-    /** @var array|string[] $components */
-    protected array $components = [
-        'columns',
-        'from',
-        'wheres'
-    ];
-
     /**
-     * Compiling the provided Builder.
-     *
-     * @param QueryBuilder $query
-     * @return string
+     * @inheritDoc
      */
-    public function compile(QueryBuilder $query): string
+    public function compile(QueryBuilderInterface $query): string
     {
-        return trim(
-            $this->concatenate(
-                $this->buildComponents($query)
-            )
-        );
+        return match ($query->type) {
+            QueryType::SELECT => $this->buildSelectSQL($query),
+            QueryType::INSERT => $this->buildInsertSQL($query),
+            QueryType::UPDATE => $this->buildUpdateSQL($query),
+            QueryType::DELETE => $this->buildDeleteSQL($query)
+        };
     }
 
+    /**
+     * @inheritDoc
+     */
+    public function buildSelectSQL(QueryBuilder $query): string
+    {
+        return $this->compileSelects($query) . ' '
+            . $this->compileFroms($query)
+            . ($query->conditions === [] ? '' :  ' ' . $this->compileConditions($query))
+            . ($query->orders === [] ? '' : ' ' . $this->compileOrders($query));
+    }
 
     /**
-     * Build all components based on $this->components.
-     *
-     * @param QueryBuilder $query
-     * @return string[]
+     * @inheritDoc
      */
-    protected function buildComponents(QueryBuilder $query): array
+    public function buildInsertSQL(QueryBuilder $query): string
     {
-        $sql = [];
-
-        foreach ($this->components as $component) {
-            if (isset($query->$component)) {
-                $sql[$component] = $this->{'build' . ucfirst($component)}($query, $query->$component);
-            }
+        foreach ($query->values as $key => $value) {
+            ksort($value);
+            $query->values[$key] = $value;
         }
 
-        return $sql;
+        $values = array_map(function ($record) {
+            return '( ' . implode(', ', array_map(fn ($parameter) => "'$parameter'", $record)) . ' )';
+        }, $query->values);
+
+        return 'INSERT INTO ' . $query->table
+            . '(' .  implode(', ', array_keys((array) current($query->values))) . ') '
+            . 'VALUES ' . implode(', ', $values);
     }
 
     /**
-     * Build column component.
-     *
-     * @param QueryBuilder $query
-     * @param string[] $columns
-     * @return string|null
+     * @inheritDoc
      */
-    protected function buildColumns(QueryBuilder $query, array $columns): ?string
+    public function buildUpdateSQL(QueryBuilder $query): string
     {
-        return "SELECT " . implode(', ', $columns);
-    }
-
-    /**
-     * Build from component
-     *
-     * @param QueryBuilder $query
-     * @param string $table
-     * @return string
-     */
-    protected function buildFrom(QueryBuilder $query, string $table): string
-    {
-        return "FROM " . $table;
-    }
-
-    /**
-     * Build where component.
-     *
-     * @param QueryBuilder $query
-     * @param array<string[]> $wheres
-     * @return string
-     */
-    protected function buildWheres(QueryBuilder $query, array $wheres): string
-    {
-        if (count($sql = $this->buildWheresToArray($query)) > 0) {
-            return "WHERE " . preg_replace('/and |or /i', '', implode(" ", $sql), 1);
-        }
-
         return "";
     }
 
     /**
-     * Build all conditions to array.
-     *
-     * @param QueryBuilder $query
-     * @return string[]
+     * @inheritDoc
      */
-    protected function buildWheresToArray(QueryBuilder $query): array
+    public function buildDeleteSQL(QueryBuilder $query): string
     {
-        return array_map(function ($where) use ($query) {
-            assert(is_string($where['type']));
-
-            return $where['boolean'] . ' ' . $this->{"where{$where['type']}"}($query, $where);
-        }, $query->wheres);
+        return 'DELETE FROM '
+            . $query->table
+            . ($query->conditions === [] ? '' : $this->compileConditions($query));
     }
 
     /**
-     * Build basic where clause.
-     *
-     * @param QueryBuilder $query
-     * @param string[] $where
-     * @return string
+     * @inheritDoc
      */
-    protected function whereBasic(QueryBuilder $query, array $where): string
+    public function compileSelects(QueryBuilder $query): string
     {
-        return $where['column'] . ' ' . $where['operator'] . ' ' . $where['value'];
+        return 'SELECT ' .  implode(', ', $query->columns);
     }
 
     /**
-     * Concat all components.
-     *
-     * @param string[] $segments
-     * @return string
+     * @inheritDoc
      */
-    protected function concatenate(array $segments): string
+    public function compileFroms(QueryBuilder $query): string
     {
-        return implode(' ', array_filter($segments, function ($value) {
-            return (string) $value !== '';
-        }));
+        return 'FROM ' . implode(', ', $query->from);
+    }
+    /**
+     * @inheritDoc
+     */
+    public function compileConditions(QueryBuilder $query): string
+    {
+        $sql = array_map(function ($where) {
+            return strtolower($where['boolean'])
+                . ' ' . $where['column']
+                . ' ' . $where['operator']
+                . ' ' . $where['value'];
+        }, $query->conditions);
+
+        return 'WHERE ' . preg_replace('/and |or /i', '', implode(" ", $sql), 1);
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function compileOrders(QueryBuilder $query): string
+    {
+        return 'ORDER BY ' . implode(', ', $query->orders);
     }
 }
