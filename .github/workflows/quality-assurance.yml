@@ -2,7 +2,7 @@ name: Quality Assurance CI
 
 on:
   push:
-    branches: [ "master", "develop" ]
+    branches: [ "master" ]
   pull_request:
     types: [ "closed" ]
     branches: [ "master" ]
