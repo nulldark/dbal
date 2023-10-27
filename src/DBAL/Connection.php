@@ -114,4 +114,12 @@ class Connection implements ConnectionInterface
             throw $e;
         }
     }
+
+    /**
+     * @inheritDoc
+     */
+    public function getDriver(): GenericDriverInterface
+    {
+        return $this->driver;
+    }
 }

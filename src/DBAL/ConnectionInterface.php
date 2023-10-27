@@ -23,6 +23,7 @@
 namespace Nulldark\DBAL;
 
 use Closure;
+use Nulldark\DBAL\Database\GenericDriverInterface;
 use Nulldark\DBAL\Query\QueryBuilderInterface;
 
 /**
@@ -96,4 +97,11 @@ interface ConnectionInterface
      * @return \Nulldark\DBAL\Query\QueryBuilderInterface
      */
     public function getQueryBuilder(): QueryBuilderInterface;
+
+    /**
+     * Gets a driver instance.
+     *
+     * @return GenericDriverInterface
+     */
+    public function getDriver(): GenericDriverInterface;
 }
