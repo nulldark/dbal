@@ -30,9 +30,9 @@ use Nulldark\Stdlib\Collections\CollectionInterface;
  * SQL Query Builder with fluid interface SQL.
  *
  * @author Dominik Szamburski
- * @package Nulldark\DBAL\Contract\Builder
+ * @package Nulldark\DBAL\Query
  * @license LGPL-2.1
- * @version 0.3.0
+ * @since 0.3.0
  */
 interface QueryBuilderInterface
 {
@@ -43,6 +43,46 @@ interface QueryBuilderInterface
      * @return self
      */
     public function select(string ...$columns): self;
+
+    /**
+     * Turns the query being built into a INSERT query.
+     *
+     * @param string $table
+     * @return self
+     *
+     * @since 0.6.0
+     */
+    public function insert(string $table): self;
+
+    /**
+     * Turns the query being built into a UPDATE query.
+     *
+     * @param string $table
+     * @return self
+     *
+     * @since 0.6.0
+     */
+    public function update(string $table): self;
+
+    /**
+     * Turns the query being built into a DELETE query.
+     *
+     * @param string $table
+     * @return self
+     *
+     * @since 0.6.0
+     */
+    public function delete(string $table): self;
+
+    /**
+     *
+     *
+     * @param array<string, mixed> $values
+     * @return self
+     *
+     * @since 0.6.0
+     */
+    public function values(array $values): self;
 
     /**
      * Set the table which the query is targeting.
@@ -70,6 +110,16 @@ interface QueryBuilderInterface
         mixed $values,
         string $boolean = 'AND'
     ): self;
+
+    /**
+     * Adds ORDER BY clause to the query.
+     *
+     * @param string $sort
+     * @param string|null $order
+     *
+     * @return self
+     */
+    public function orderBy(string $sort, ?string $order = null): self;
 
     /**
      * Get the SQL representation.

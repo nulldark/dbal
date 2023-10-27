@@ -27,6 +27,7 @@ use Nulldark\DBAL\ConnectionInterface;
 use Nulldark\DBAL\FetchMode;
 use Nulldark\DBAL\Query\Grammars\Grammar;
 use Nulldark\DBAL\Connection;
+use Nulldark\DBAL\Query\Grammars\GrammarInterface;
 use Nulldark\Stdlib\Collections\CollectionInterface;
 
 /**
@@ -37,8 +38,8 @@ use Nulldark\Stdlib\Collections\CollectionInterface;
  */
 class QueryBuilder implements QueryBuilderInterface
 {
-    /** @var Grammar $grammar */
-    public Grammar $grammar;
+    /** @var GrammarInterface $grammar */
+    public GrammarInterface $grammar;
 
     /** @var array|string[] $operators */
     public array $operators = [
@@ -48,21 +49,34 @@ class QueryBuilder implements QueryBuilderInterface
     /** @var string[] $columns */
     public array $columns;
 
-    /** @var string $from */
-    public string $from;
+    /** @var string[] $from */
+    public array $from = [];
 
-    /** @var array<array-key, mixed[]> $wheres */
-    public array $wheres;
+    /** @var array<array-key, mixed[]> $conditions */
+    public array $conditions = [];
+
+    /** @var string[] $orders */
+    public array $orders = [];
+
+    /** @var array<array-key, array<string, mixed>> $values  */
+    public array $values = [];
+
+    /** @var string $table */
+    public string $table;
 
     /** @var ConnectionInterface $connection */
     private ConnectionInterface $connection;
+
+    public QueryType $type = QueryType::SELECT;
 
     public function __construct(
         ConnectionInterface $connection,
         Grammar $grammar = null
     ) {
         $this->connection = $connection;
-        $this->grammar = $grammar ?: new Grammar();
+        $this->grammar = $grammar ?: $connection->getDriver()
+            ->getDatabasePlatform()
+            ->getGrammar();
     }
 
     /**
@@ -70,6 +84,8 @@ class QueryBuilder implements QueryBuilderInterface
      */
     public function select(string ...$columns): self
     {
+        $this->type = QueryType::SELECT;
+
         $this->columns = [];
 
         if (empty($columns)) {
@@ -86,33 +102,56 @@ class QueryBuilder implements QueryBuilderInterface
     /**
      * @inheritDoc
      */
-    public function from(string $table, string $as = null): self
+    public function insert(string $table): QueryBuilderInterface
     {
-        $this->from = $as === null ? $table : "$table AS $as";
+        $this->type = QueryType::INSERT;
+        $this->table = $table;
         return $this;
     }
 
     /**
      * @inheritDoc
      */
-    public function where(
-        string $column,
-        string $operator,
-        mixed $values,
-        string $boolean = 'AND'
-    ): QueryBuilderInterface {
+    public function update(string $table): QueryBuilderInterface
+    {
+        $this->type = QueryType::UPDATE;
+        $this->table = $table;
+
+        return $this;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function delete(string $table): QueryBuilderInterface
+    {
+        $this->type = QueryType::DELETE;
+        $this->table = $table;
+
+        return $this;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function from(string $table, string $as = null): self
+    {
+        $this->from[] = $as === null ? $table : "$table AS $as";
+        return $this;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function where(string $column, string $operator, mixed $values, string $boolean = 'AND'): self
+    {
         [$value, $operator] = $this->prepareValueAndOperator(
             $values,
             $operator,
             func_num_args() === 2
         );
 
-        $type = match ($operator) {
-            default => 'Basic'
-        };
-
-        $this->wheres[] = compact(
-            'type',
+        $this->conditions[] = compact(
             'column',
             'operator',
             'value',
@@ -169,5 +208,23 @@ class QueryBuilder implements QueryBuilderInterface
         }
 
         return [$value, $operator];
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function orderBy(string $sort, ?string $order = null): QueryBuilderInterface
+    {
+        $this->orders[] = "$sort" . ($order === null ? '' : ' ' . $order);
+        return $this;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function values(array $values): QueryBuilderInterface
+    {
+        $this->values[] = $values;
+        return $this;
     }
 }
