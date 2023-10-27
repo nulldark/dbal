@@ -69,7 +69,7 @@ class QueryBuilderTest extends TestCase
     {
         $this->assertEquals(
             'foo',
-            $this->builder->from('foo')->from
+            $this->builder->from('foo')->from[0]
         );
     }
 
@@ -77,7 +77,7 @@ class QueryBuilderTest extends TestCase
     {
         $this->assertEquals(
             'foo AS f',
-            $this->builder->from('foo', 'f')->from
+            $this->builder->from('foo', 'f')->from[0]
         );
     }
 
@@ -85,14 +85,13 @@ class QueryBuilderTest extends TestCase
     {
         $this->builder->where('foo', '=', 'bar');
 
-        $this->assertCount(1, $this->builder->wheres);
+        $this->assertCount(1, $this->builder->conditions);
         $this->assertEquals([
-            'type' => 'Basic',
             'column' => 'foo',
             'operator' => '=',
             'value' => 'bar',
             'boolean' => 'AND'
-        ], $this->builder->wheres[0]);
+        ], $this->builder->conditions[0]);
     }
 
     public function testSqlCompiler(): void
