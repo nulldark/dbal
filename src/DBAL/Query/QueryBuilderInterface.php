@@ -133,6 +133,8 @@ interface QueryBuilderInterface
      *
      * @param \Nulldark\DBAL\FetchMode $fetchMode
      * @return CollectionInterface
+     *
+     * @deprecated 0.7.0
      */
     public function get(FetchMode $fetchMode = FetchMode::OBJECT): CollectionInterface;
 }

@@ -25,7 +25,7 @@ namespace Nulldark\DBAL\Query\Grammars;
 use Nulldark\DBAL\Query\QueryBuilder;
 
 /**
- * @internal 
+ * @internal
  *
  * @author Damian Mosiński
  * @package Nulldark\DBAL\Contract\Builder\Grammars
