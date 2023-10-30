@@ -58,6 +58,12 @@ class QueryBuilder implements QueryBuilderInterface
     /** @var string[] $orders */
     public array $orders = [];
 
+    /** @var int $limit */
+    public int $limit = 0;
+
+    /** @var int $offset */
+    public int $offset = 0;
+
     /** @var array<array-key, array<string, mixed>> $values  */
     public array $values = [];
 
@@ -216,6 +222,17 @@ class QueryBuilder implements QueryBuilderInterface
     public function orderBy(string $sort, ?string $order = null): QueryBuilderInterface
     {
         $this->orders[] = "$sort" . ($order === null ? '' : ' ' . $order);
+        return $this;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function limit(int $limit, ?int $offset = null): QueryBuilderInterface
+    {
+        $this->limit = $limit;
+        $this->offset = $offset === null ? '' : $offset;
+
         return $this;
     }
 

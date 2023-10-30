@@ -57,7 +57,8 @@ class Grammar implements GrammarInterface
         return $this->compileSelects($query) . ' '
             . $this->compileFroms($query)
             . ($query->conditions === [] ? '' :  ' ' . $this->compileConditions($query))
-            . ($query->orders === [] ? '' : ' ' . $this->compileOrders($query));
+            . ($query->orders === [] ? '' : ' ' . $this->compileOrders($query))
+            . ($query->limit === 0 ? '' : ' ' . $this->compileLimit($query));
     }
 
     /**
@@ -133,5 +134,13 @@ class Grammar implements GrammarInterface
     public function compileOrders(QueryBuilder $query): string
     {
         return 'ORDER BY ' . implode(', ', $query->orders);
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function compileLimit(QueryBuilder $query): string
+    {
+        return '';
     }
 }

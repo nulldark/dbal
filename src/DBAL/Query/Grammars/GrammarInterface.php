@@ -122,4 +122,14 @@ interface GrammarInterface
      * @since 0.6.0
      */
     public function compileOrders(QueryBuilder $query): string;
+
+    /**
+     * Compiles LIMIT clauses into SQL.
+     *
+     * @param QueryBuilder $query
+     * @return string
+     *
+     * @since 0.7.0
+     */
+    public function compileLimit(QueryBuilder $query): string;
 }

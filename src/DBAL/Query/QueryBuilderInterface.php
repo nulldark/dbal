@@ -122,6 +122,16 @@ interface QueryBuilderInterface
     public function orderBy(string $sort, ?string $order = null): self;
 
     /**
+     * Adds LIMIT clause to the query.
+     *
+     * @param int $limit
+     * @param int|null $offset
+     *
+     * @return self
+     */
+    public function limit(int $limit, ?int $offset = null): self;
+
+    /**
      * Get the SQL representation.
      *
      * @return string

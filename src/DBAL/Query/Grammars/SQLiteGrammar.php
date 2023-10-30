@@ -22,6 +22,8 @@
 
 namespace Nulldark\DBAL\Query\Grammars;
 
+use Nulldark\DBAL\Query\QueryBuilder;
+
 /**
  * @internal
  *
@@ -32,4 +34,11 @@ namespace Nulldark\DBAL\Query\Grammars;
  */
 class SQLiteGrammar extends Grammar implements GrammarInterface
 {
+    /**
+     * @inheritDoc
+     */
+    public function compileLimit(QueryBuilder $query): string
+    {
+        return ($query->limit === 0 ? '' : 'LIMIT ' . $query->limit) . ($query->offset === '' ? '' : 'OFFSET ' . $query->offset);
+    }
 }
