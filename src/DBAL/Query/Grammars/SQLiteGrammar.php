@@ -39,6 +39,7 @@ class SQLiteGrammar extends Grammar implements GrammarInterface
      */
     public function compileLimit(QueryBuilder $query): string
     {
-        return ($query->limit === 0 ? '' : 'LIMIT ' . $query->limit) . ($query->offset === '' ? '' : 'OFFSET ' . $query->offset);
+        return ($query->limit == 0 ? '' : 'LIMIT ' . $query->limit)
+        . ($query->offset === null ? '' : 'OFFSET ' . $query->offset);
     }
 }

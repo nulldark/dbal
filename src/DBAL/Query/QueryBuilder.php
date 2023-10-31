@@ -26,7 +26,6 @@ use InvalidArgumentException;
 use Nulldark\DBAL\ConnectionInterface;
 use Nulldark\DBAL\FetchMode;
 use Nulldark\DBAL\Query\Grammars\Grammar;
-use Nulldark\DBAL\Connection;
 use Nulldark\DBAL\Query\Grammars\GrammarInterface;
 use Nulldark\Stdlib\Collections\CollectionInterface;
 
@@ -61,8 +60,8 @@ class QueryBuilder implements QueryBuilderInterface
     /** @var int $limit */
     public int $limit = 0;
 
-    /** @var int $offset */
-    public int $offset = 0;
+    /** @var ?int $offset */
+    public ?int $offset = null;
 
     /** @var array<array-key, array<string, mixed>> $values  */
     public array $values = [];
@@ -231,7 +230,7 @@ class QueryBuilder implements QueryBuilderInterface
     public function limit(int $limit, ?int $offset = null): QueryBuilderInterface
     {
         $this->limit = $limit;
-        $this->offset = $offset === null ? '' : $offset;
+        $this->offset = $offset === null ? null : $offset;
 
         return $this;
     }

@@ -39,6 +39,7 @@ class MySqlGrammar extends Grammar implements GrammarInterface
      */
     public function compileLimit(QueryBuilder $query): string
     {
-        return ($query->limit === 0 ? '' : 'LIMIT ' . $query->limit) . ($query->offset === '' ? '' : ',' . $query->offset);
+        return ($query->limit == 0 ? '' : 'LIMIT ' . $query->limit)
+        . ($query->offset === null ? '' : ',' . $query->offset);
     }
 }
