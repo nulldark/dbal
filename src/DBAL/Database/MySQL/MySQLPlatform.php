@@ -3,7 +3,7 @@
 /**
  * Copyright (C) 2023 Dominik Szamburski
  *
- * This file is part of nulldark/dbal
+ * This file is part of abyss/dbal
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -20,17 +20,17 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  */
 
-namespace Nulldark\DBAL\Database\MySQL;
+namespace Abyss\DBAL\Database\MySQL;
 
-use Nulldark\DBAL\Query\Grammars\GrammarInterface;
-use Nulldark\DBAL\Query\Grammars\MySqlGrammar;
-use Nulldark\DBAL\Database\AbstractPlatform;
+use Abyss\DBAL\Query\Grammars\GrammarInterface;
+use Abyss\DBAL\Query\Grammars\MySqlGrammar;
+use Abyss\DBAL\Database\AbstractPlatform;
 
 /**
  * The MySQLPlatform class describes the specifics and dialects of the MySQL database platform.
  *
  * @author Dominik Szamburski
- * @package Nulldark\DBAL\Database\MySQL
+ * @package Abyss\DBAL\Database\MySQL
  * @license LGPL-2.1
  * @version 0.5.0
  */

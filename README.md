@@ -1,4 +1,4 @@
-## nulldark/dbal
+## abyss/dbal
 
 The DataBase Abstract Layer providing a fluent query and other many features. It currently supports MySQL, Postgres 
 and SQLite based on PDO. 
@@ -11,7 +11,7 @@ It is currently not recommended to use on production!
 
 First, create new Connection.
 ```php
-$connection = new \Nulldark\DBAL\Connection([
+$connection = new \Abyss\DBAL\Connection([
     'driver' => 'mysql',
     'dsn' => 'mysql:host=127.0.0.1;dbname=foo',
     'username' => 'root',

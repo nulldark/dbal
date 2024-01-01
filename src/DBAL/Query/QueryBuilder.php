@@ -3,7 +3,7 @@
 /**
  * Copyright (C) 2023 Dominik Szamburski
  *
- * This file is part of nulldark/dbal
+ * This file is part of abyss/dbal
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -20,18 +20,18 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  */
 
-namespace Nulldark\DBAL\Query;
+namespace Abyss\DBAL\Query;
 
 use InvalidArgumentException;
-use Nulldark\DBAL\ConnectionInterface;
-use Nulldark\DBAL\FetchMode;
-use Nulldark\DBAL\Query\Grammars\Grammar;
-use Nulldark\DBAL\Query\Grammars\GrammarInterface;
-use Nulldark\Stdlib\Collections\CollectionInterface;
+use Abyss\DBAL\ConnectionInterface;
+use Abyss\DBAL\FetchMode;
+use Abyss\DBAL\Query\Grammars\Grammar;
+use Abyss\DBAL\Query\Grammars\GrammarInterface;
+use Abyss\Stdlib\Collections\CollectionInterface;
 
 /**
  * @author Dominik Szamburski
- * @package Nulldark\DBAL\Builder
+ * @package Abyss\DBAL\Builder
  * @license LGPL-2.1
  * @version 0.3.0
  */

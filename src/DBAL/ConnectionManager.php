@@ -3,7 +3,7 @@
 /**
  * Copyright (C) 2023 Dominik Szamburski
  *
- * This file is part of nulldark/dbal
+ * This file is part of abyss/dbal
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -20,21 +20,21 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  */
 
-namespace Nulldark\DBAL;
+namespace Abyss\DBAL;
 
-use Nulldark\DBAL\Database\GenericDriverFactory;
-use Nulldark\DBAL\Exception\ConnectionException;
+use Abyss\DBAL\Database\GenericDriverFactory;
+use Abyss\DBAL\Exception\ConnectionException;
 
 /**
  * Automatic factory for Connections and drivers.
  *
  * @author Dominik Szamburski
- * @package Nulldark\DBAL
+ * @package Abyss\DBAL
  * @license LGPL-2.1
  * @version 0.5.0
  *
  * <code>
- *     $manager = new \Nulldark\DBAL\ConnectionManager();
+ *     $manager = new \Abyss\DBAL\ConnectionManager();
  *     $manager->addConnection([
  *          'driver' => 'mysql',
  *          'dsn' => 'mysql:host=127.0.0.1;dbname=foo'
@@ -120,7 +120,7 @@ final class ConnectionManager
      * Creates new Connection instance.
      *
      * @param string $name
-     * @return \Nulldark\DBAL\ConnectionInterface
+     * @return \Abyss\DBAL\ConnectionInterface
      */
     private function makeConnection(string $name): ConnectionInterface
     {

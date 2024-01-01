@@ -3,7 +3,7 @@
 /**
  * Copyright (C) 2023 Dominik Szamburski
  *
- * This file is part of nulldark/dbal
+ * This file is part of abyss/dbal
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -20,11 +20,11 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  */
 
-namespace Nulldark\DBAL\Exception;
+namespace Abyss\DBAL\Exception;
 
 /**
  * @author Dominik Szamburski
- * @package Nulldark\DBAL\Exception
+ * @package Abyss\DBAL\Exception
  * @license LGPL-2.1
  * @version 0.5.0
  */

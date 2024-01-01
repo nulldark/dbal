@@ -1,5 +1,5 @@
 {
-  "name": "nulldark/dbal",
+  "name": "abyss/dbal",
   "description": "DBAL Component",
   "license": "LGPL-2.1-only",
   "authors": [
@@ -17,12 +17,12 @@
   },
   "autoload": {
     "psr-4": {
-      "Nulldark\\DBAL\\": "src/DBAL/"
+      "Abyss\\DBAL\\": "src/DBAL/"
     }
   },
   "autoload-dev": {
     "psr-4": {
-      "Nulldark\\Tests\\": "tests/"
+      "Abyss\\Tests\\": "tests/"
     }
   },
   "config": {

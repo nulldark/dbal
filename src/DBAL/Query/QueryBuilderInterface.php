@@ -3,7 +3,7 @@
 /**
  * Copyright (C) 2023 Dominik Szamburski
  *
- * This file is part of nulldark/dbal
+ * This file is part of abyss/dbal
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -20,17 +20,17 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  */
 
-namespace Nulldark\DBAL\Query;
+namespace Abyss\DBAL\Query;
 
 use InvalidArgumentException;
-use Nulldark\DBAL\FetchMode;
-use Nulldark\Stdlib\Collections\CollectionInterface;
+use Abyss\DBAL\FetchMode;
+use Abyss\Stdlib\Collections\CollectionInterface;
 
 /**
  * SQL Query Builder with fluid interface SQL.
  *
  * @author Dominik Szamburski
- * @package Nulldark\DBAL\Query
+ * @package Abyss\DBAL\Query
  * @license LGPL-2.1
  * @since 0.3.0
  */
@@ -141,7 +141,7 @@ interface QueryBuilderInterface
     /**
      * Execute the "SELECT" Query.
      *
-     * @param \Nulldark\DBAL\FetchMode $fetchMode
+     * @param \Abyss\DBAL\FetchMode $fetchMode
      * @return CollectionInterface
      *
      * @deprecated 0.7.0

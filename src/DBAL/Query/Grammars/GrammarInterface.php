@@ -3,7 +3,7 @@
 /**
  * Copyright (C) 2023 Dominik Szamburski
  *
- * This file is part of nulldark/dbal
+ * This file is part of abyss/dbal
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -20,15 +20,15 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  */
 
-namespace Nulldark\DBAL\Query\Grammars;
+namespace Abyss\DBAL\Query\Grammars;
 
-use Nulldark\DBAL\Query\QueryBuilder;
+use Abyss\DBAL\Query\QueryBuilder;
 
 /**
  * @internal
  *
  * @author Damian Mosiński
- * @package Nulldark\DBAL\Contract\Builder\Grammars
+ * @package Abyss\DBAL\Contract\Builder\Grammars
  * @license LGPL-2.1
  * @since 0.5.0
  */

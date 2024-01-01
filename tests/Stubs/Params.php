@@ -1,6 +1,6 @@
 <?php
 
-namespace Nulldark\Tests\Stubs;
+namespace Abyss\Tests\Stubs;
 
 class Params
 {

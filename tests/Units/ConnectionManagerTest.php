@@ -1,11 +1,11 @@
 <?php
 
-namespace Nulldark\Tests\Units;
+namespace Abyss\Tests\Units;
 
-use Nulldark\DBAL\ConnectionInterface;
-use Nulldark\DBAL\ConnectionManager;
-use Nulldark\DBAL\Exception\ConnectionException;
-use Nulldark\Tests\Stubs\Params;
+use Abyss\DBAL\ConnectionInterface;
+use Abyss\DBAL\ConnectionManager;
+use Abyss\DBAL\Exception\ConnectionException;
+use Abyss\Tests\Stubs\Params;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 

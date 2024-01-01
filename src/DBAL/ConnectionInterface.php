@@ -3,7 +3,7 @@
 /**
  * Copyright (C) 2023 Dominik Szamburski
  *
- * This file is part of nulldark/dbal
+ * This file is part of abyss/dbal
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -20,17 +20,17 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  */
 
-namespace Nulldark\DBAL;
+namespace Abyss\DBAL;
 
 use Closure;
-use Nulldark\DBAL\Database\GenericDriverInterface;
-use Nulldark\DBAL\Query\QueryBuilderInterface;
+use Abyss\DBAL\Database\GenericDriverInterface;
+use Abyss\DBAL\Query\QueryBuilderInterface;
 
 /**
  * Connection is High Level of abstraction used to represent single Database.
  *
  * @author Dominik Szamburski
- * @package Nulldark\DBAL
+ * @package Abyss\DBAL
  * @license LGPL-2.1
  * @since 0.5.0
  */
@@ -94,7 +94,7 @@ interface ConnectionInterface
     /**
      * Gets a new QueryBuilder instance.
      *
-     * @return \Nulldark\DBAL\Query\QueryBuilderInterface
+     * @return \Abyss\DBAL\Query\QueryBuilderInterface
      */
     public function getQueryBuilder(): QueryBuilderInterface;
 

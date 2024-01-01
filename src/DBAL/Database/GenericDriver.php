@@ -3,7 +3,7 @@
 /**
  * Copyright (C) 2023 Dominik Szamburski
  *
- * This file is part of nulldark/dbal
+ * This file is part of abyss/dbal
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -20,7 +20,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  */
 
-namespace Nulldark\DBAL\Database;
+namespace Abyss\DBAL\Database;
 
 use PDO;
 use PDOStatement;
@@ -29,11 +29,11 @@ use PDOStatement;
  * Provides a Low Level abstraction at top of databases platform.
  *
  * @author Dominik Szamburski
- * @package Nulldark\DBAL\Database
+ * @package Abyss\DBAL\Database
  * @license LGPL-2.1
  * @since 0.5.0
  *
- * @phpstan-import-type ConnectionParams from \Nulldark\DBAL\ConnectionManager
+ * @phpstan-import-type ConnectionParams from \Abyss\DBAL\ConnectionManager
  */
 abstract class GenericDriver implements GenericDriverInterface
 {

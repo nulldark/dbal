@@ -1,12 +1,12 @@
 <?php
 
-namespace Nulldark\Tests\Units\Database;
+namespace Abyss\Tests\Units\Database;
 
-use Nulldark\DBAL\Database\GenericDriverFactory;
-use Nulldark\DBAL\Database\GenericDriverInterface;
-use Nulldark\DBAL\Database\MySQL\MySQLDriver;
-use Nulldark\DBAL\Exception\UnsupportedDriverException;
-use Nulldark\Tests\Stubs\Params;
+use Abyss\DBAL\Database\GenericDriverFactory;
+use Abyss\DBAL\Database\GenericDriverInterface;
+use Abyss\DBAL\Database\MySQL\MySQLDriver;
+use Abyss\DBAL\Exception\UnsupportedDriverException;
+use Abyss\Tests\Stubs\Params;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 

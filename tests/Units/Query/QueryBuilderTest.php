@@ -3,7 +3,7 @@
 /**
  * Copyright (C) 2023 Dominik Szamburski
  *
- * This file is part of nulldark/dbal
+ * This file is part of abyss/dbal
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -20,12 +20,12 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  */
 
-namespace Nulldark\Tests\Units\Query;
+namespace Abyss\Tests\Units\Query;
 
-use Nulldark\DBAL\Query\QueryBuilder;
-use Nulldark\DBAL\Query\QueryBuilderInterface;
-use Nulldark\DBAL\Query\Grammars\Grammar;
-use Nulldark\Tests\Fixtures\DummyConnection;
+use Abyss\DBAL\Query\QueryBuilder;
+use Abyss\DBAL\Query\QueryBuilderInterface;
+use Abyss\DBAL\Query\Grammars\Grammar;
+use Abyss\Tests\Fixtures\DummyConnection;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 

@@ -1,10 +1,10 @@
 <?php
 
-namespace Nulldark\Tests\Fixtures;
+namespace Abyss\Tests\Fixtures;
 
-use Nulldark\DBAL\Database\SQLite\SQLiteDriver;
+use Abyss\DBAL\Database\SQLite\SQLiteDriver;
 
-class DummyConnection extends \Nulldark\DBAL\Connection
+class DummyConnection extends \Abyss\DBAL\Connection
 {
     public function __construct()
     {
