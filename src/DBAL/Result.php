@@ -11,8 +11,8 @@
 
 namespace Abyss\DBAL;
 
-use Abyss\Stdlib\Collections\Collection;
-use Abyss\Stdlib\Collections\CollectionInterface;
+use Nulldark\Stdlib\Collections\Collection;
+use Nulldark\Stdlib\Collections\CollectionInterface;
 
 /**
  * @author Dominik Szamburski
@@ -70,7 +70,7 @@ final class Result
     /**
      * Returns a collection containing all the result rows represented as numeric arrays.
      *
-     * @return \Abyss\Stdlib\Collections\CollectionInterface
+     * @return \Nulldark\Stdlib\Collections\CollectionInterface
      */
     public function fetchAllNumeric(): CollectionInterface
     {
@@ -80,7 +80,7 @@ final class Result
     /**
      *  Returns a collection containing all the result rows represented as associative arrays.
      *
-     * @return \Abyss\Stdlib\Collections\CollectionInterface
+     * @return \Nulldark\Stdlib\Collections\CollectionInterface
      */
     public function fetchAllAssociative(): CollectionInterface
     {
@@ -90,7 +90,7 @@ final class Result
     /**
      * Returns a collection containing all the result rows represented as objects.
      *
-     * @return \Abyss\Stdlib\Collections\CollectionInterface
+     * @return \Nulldark\Stdlib\Collections\CollectionInterface
      */
     public function fetchAllObject(): CollectionInterface
     {
@@ -100,7 +100,7 @@ final class Result
     /**
      * Returns a collection containing the values of the first column of the result.
      *
-     * @return \Abyss\Stdlib\Collections\CollectionInterface
+     * @return \Nulldark\Stdlib\Collections\CollectionInterface
      */
     public function fetchFirstColumn(): CollectionInterface
     {
@@ -138,7 +138,7 @@ final class Result
 
     /**
      * @param \Abyss\DBAL\FetchMode $mode
-     * @return \Abyss\Stdlib\Collections\CollectionInterface
+     * @return \Nulldark\Stdlib\Collections\CollectionInterface
      */
     private function fetchAll(FetchMode $mode): CollectionInterface
     {
