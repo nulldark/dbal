@@ -1,6 +1,6 @@
 <?php
 
-namespace Abyss\Tests\Stubs;
+namespace Abyss\Test\Unit\Stubs;
 
 class Params
 {

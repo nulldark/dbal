@@ -1,7 +1,10 @@
 parameters:
-    level: 8
-    treatPhpDocTypesAsCertain: false
+    level: max
+    tmpDir: ./build/cache/phpstan
+    checkMissingIterableValueType: false
+    reportUnmatchedIgnoredErrors: false
     checkGenericClassInNonGenericObjectType: false
-    tmpDir: ./.build/cache/phpstan
+    tipsOfTheDay: false
     paths:
-        - ./src
+        - src/
+        - tests/

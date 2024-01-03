@@ -1,6 +1,6 @@
 <?php
 
-namespace Abyss\Tests\Fixtures;
+namespace Abyss\Test\Unit\Fixtures;
 
 use Abyss\DBAL\Database\SQLite\SQLiteDriver;
 

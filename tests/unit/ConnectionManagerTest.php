@@ -1,11 +1,11 @@
 <?php
 
-namespace Abyss\Tests\Units;
+namespace Abyss\Test\Unit;
 
 use Abyss\DBAL\ConnectionInterface;
 use Abyss\DBAL\ConnectionManager;
 use Abyss\DBAL\Exception\ConnectionException;
-use Abyss\Tests\Stubs\Params;
+use Abyss\Test\Unit\Stubs\Params;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 

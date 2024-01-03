@@ -20,12 +20,12 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  */
 
-namespace Abyss\Tests\Units\Query;
+namespace Abyss\Test\Unit\Query;
 
+use Abyss\DBAL\Query\Grammars\Grammar;
 use Abyss\DBAL\Query\QueryBuilder;
 use Abyss\DBAL\Query\QueryBuilderInterface;
-use Abyss\DBAL\Query\Grammars\Grammar;
-use Abyss\Tests\Fixtures\DummyConnection;
+use Abyss\Test\Unit\Fixtures\DummyConnection;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 

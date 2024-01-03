@@ -1,12 +1,12 @@
 <?php
 
-namespace Abyss\Tests\Units\Database;
+namespace Abyss\Test\Unit\Database;
 
 use Abyss\DBAL\Database\GenericDriverFactory;
 use Abyss\DBAL\Database\GenericDriverInterface;
 use Abyss\DBAL\Database\MySQL\MySQLDriver;
 use Abyss\DBAL\Exception\UnsupportedDriverException;
-use Abyss\Tests\Stubs\Params;
+use Abyss\Test\Unit\Stubs\Params;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 
